@@ -1,0 +1,37 @@
+.form{
+    position: relative;
+}
+
+.searchbar{
+    width: 200px;
+    height: 35px;
+    color: var(--preset-color-black-1);
+    border-radius: 25px;
+    border: 1px solid var(--preset-color-grey-1);
+    background-color: var(--preset-color-green-transparent);
+    padding: 0px 0px 0px 40px;
+    font-family: var(--preset-font-family-2);
+    font-size: var(--preset-text-5-font-size);
+    font-weight: var(--preset-text-5-font-weight);
+    line-height: var(--preset-text-5-line-height);
+    letter-spacing: var(--preset-text-5-letter-spacing);
+}
+
+.searchbar::-webkit-search-cancel-button{
+    display: none;
+}
+
+.searchbar:focus{
+    outline: none;
+    border: 1px solid var(--preset-color-green-1)
+}
+
+.search_icon{
+    width: 20px;
+    object-fit: contain;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    margin: auto;
+    left: 15px;
+}
