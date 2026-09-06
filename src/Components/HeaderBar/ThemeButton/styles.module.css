@@ -1,0 +1,14 @@
+.theme{
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+    border: 1px solid var(--preset-color-grey-1);
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0px;
+}
+
+.theme_icon{
+    width: 20px;
+    object-fit: contain;
+}

@@ -11,6 +11,9 @@
         "skipLibCheck": true,
         "outDir": "./dist",
         "rootDir": "./src",
+        "paths": {
+            "~/*": ["./src/*"]
+        }
     },
     "include": ["src", "global.d.ts"]
 }

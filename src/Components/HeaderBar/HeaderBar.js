@@ -1,5 +1,6 @@
 import React from 'react';
 import SearchBar from './SearchBar';
+import ThemeButton from './ThemeButton';
 import * as styles from './styles.module.css';
 
 function HeaderBar() {
@@ -10,6 +11,7 @@ function HeaderBar() {
             </p>
             <div className={styles.header_group}>
                 <SearchBar/>
+                <ThemeButton/>
             </div>
         </header>
     )

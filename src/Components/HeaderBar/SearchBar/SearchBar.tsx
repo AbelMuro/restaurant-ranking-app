@@ -1,15 +1,23 @@
-import React, {useState, ChangeEvent} from 'react';
+import React, {useEffect, ChangeEvent, useDeferredValue} from 'react';
+import { useTypedDispatch, useTypedSelector } from '~/Store';
 import icons from './icons';
 import * as styles from './styles.module.css';
 
 function SearchBar() {
-    const [search, setSearch] = useState<string>('');
+    const dispatch = useTypedDispatch();
+    const search = useTypedSelector<string>(state => state.search.search);
+    const deferredSearch = useDeferredValue(search);
 
     const handleSearch = (e: ChangeEvent) => {
         const inputElement = e.target as HTMLInputElement;
         const value = inputElement.value;
-        setSearch(value);
-    }
+        dispatch({type: 'UPDATE_SEARCH', payload: {search: value}});
+    };
+
+
+    useEffect(() => {
+        console.log('deferred search');
+    }, [deferredSearch])
 
     return(
         <form className={styles.form}>
