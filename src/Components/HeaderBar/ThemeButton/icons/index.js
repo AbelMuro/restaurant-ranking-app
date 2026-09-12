@@ -1,4 +1,6 @@
-import moon from './moon.svg';
-import sun from './sun.svg';
+import darkMoon from './dark-moon.svg';
+import darkSun from './dark-sun.svg';
+import lightMoon from './light-moon.svg';
+import lightSun from './light-sun.svg';
 
-export default {moon, sun};
+export default {darkMoon, darkSun, lightSun, lightMoon};

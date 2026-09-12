@@ -1,39 +1,37 @@
-.theme{
+.refresh{
     width: 35px;
     height: 35px;
     border-radius: 100%;
-    border: 1px solid var(--preset-color-grey-1);
+    cursor: pointer;
     background-color: transparent;
     cursor: pointer;
-    padding: 0px;
 }
 
-.theme.light{
+.refresh.light{
     border: 1px solid var(--preset-color-grey-1);
 }
 
-.theme.dark{
-    border: 1px solid var(--preset-color-white-1);
-}
-
-.theme.light:hover{
+.refresh.light:hover{
     background-color: var(--preset-color-white-2);
 }
 
-.theme.light:active{
+.refresh.light:active{
     background-color: var(--preset-color-white-3);
 }
 
+.refresh.dark{
+    border: 1px solid var(--preset-color-white-1);
+}
 
-.theme.dark:hover{
+.refresh.dark:hover{
     background-color: var(--preset-color-grey-2);
 }
 
-.theme.dark:active{
+.refresh.dark:active{
     background-color: var(--preset-color-grey-1);
 }
 
-.theme_icon{
-    width: 20px;
+.refresh_icon{
+    width: 18px;
     object-fit: contain;
 }

@@ -5,16 +5,33 @@
 .searchbar{
     width: 200px;
     height: 35px;
-    color: var(--preset-color-black-1);
     border-radius: 25px;
-    border: 1px solid var(--preset-color-grey-1);
-    background-color: var(--preset-color-green-transparent);
     padding: 0px 0px 0px 40px;
-    font-family: var(--preset-font-family-2);
+    font-family: var(--preset-font-family-3);
     font-size: var(--preset-text-5-font-size);
     font-weight: var(--preset-text-5-font-weight);
     line-height: var(--preset-text-5-line-height);
     letter-spacing: var(--preset-text-5-letter-spacing);
+}
+
+.searchbar.light{
+    color: var(--preset-color-black-1);
+    background-color: var(--preset-color-green-transparent-light);
+    border: 1px solid var(--preset-color-grey-1);
+}
+
+.searchbar.dark{
+    color: var(--preset-color-white-1);
+    background-color: var(--preset-color-green-transparent-dark);
+    border: 1px solid var(--preset-color-white-1);
+}
+
+.searchbar.light::placeholder{
+    color: var(--preset-color-grey-2);
+}
+
+.searchbar.dark::placeholder{
+    color: var(--preset-color-white-3);
 }
 
 .searchbar::-webkit-search-cancel-button{

@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import {ChangeTheme} from '~/Common/Functions'
 import {motion, AnimatePresence} from 'framer-motion';
 import { useTypedDispatch, useTypedSelector } from '~/Store';
 import icons from './icons';
@@ -16,7 +17,7 @@ function ThemeButton() {
 
 
     return (
-        <button className={styles.theme} onClick={handleTheme}>
+        <button className={ChangeTheme(styles, 'theme', theme)} onClick={handleTheme}>
             <AnimatePresence>
                 {
                     theme === 'dark' ? 
@@ -25,10 +26,10 @@ function ThemeButton() {
                         animate={{scale: 1}}
                         exit={{scale: 0}}
                         className={styles.theme_icon} 
-                        src={icons['sun']}/> :
+                        src={icons['lightSun']}/> :
                     <motion.img 
                         className={styles.theme_icon} 
-                        src={icons['moon']}
+                        src={icons['darkMoon']}
                         initial={{scale: 0}}
                         animate={{scale: 1}}
                         exit={{scale: 0}}

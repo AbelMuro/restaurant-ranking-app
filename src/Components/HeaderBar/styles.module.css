@@ -8,13 +8,30 @@
     padding: 0px 15px;
 }
 
+.header.light{
+    border-bottom: 1px solid var(--preset-color-grey-1);
+    background-color: white;
+}
+
+.header.dark{
+    border-bottom: 1px solid var(--preset-color-white-1);
+    background-color: var(--preset-color-grey-3);
+}
+
 .header_logo{
-    color: var(--preset-color-black-1);
     font-family: var(--preset-font-family-1);
     font-size: var(--preset-text-4-font-size);
     font-weight: var(--preset-text-4-font-weight);
     line-height: var(--preset-text-4-line-height);
     letter-spacing: var(--preset-text-4-letter-spacing);
+}
+
+.header_logo.light{
+    color: var(--preset-color-black-1);
+}
+
+.header_logo.dark{
+    color: var(--preset-color-white-1);
 }
 
 .header_group{

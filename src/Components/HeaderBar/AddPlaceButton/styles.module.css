@@ -1,0 +1,22 @@
+.place{
+    width: 140px;
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    color: var(--preset-color-white-1);
+    background-color: var(--preset-color-green-1);
+    font-family: var(--preset-font-family-3);
+    font-size: var(--preset-text-4-font-size-1);
+    font-weight: var(--preset-text-4-font-weight);
+    line-height: var(--preset-text-4-line-height);
+    letter-spacing: var(--preset-text-4-letter-spacing);
+    cursor: pointer;
+}
+
+.place:hover{
+    background-color: var(--preset-color-green-2);
+}
+
+.place:active{
+    background-color: var(--preset-color-green-3);
+}

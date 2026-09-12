@@ -8,6 +8,11 @@
     src: url('./Common/Fonts/Montserrat-VariableFont_wght.ttf');
 }
 
+@font-face{
+    font-family: 'roboto';
+    src: url('./Common/Fonts/Roboto-VariableFont_wdth\,wght.ttf');
+}
+
 * {
     box-sizing: border-box;
     transition: all 0.2s linear, opacity 0s, transform 0s;
@@ -20,13 +25,28 @@ body, html{
 
 :root{
     --preset-color-grey-1: rgb(181, 181, 181);
-    --preset-color-black-1: rgb(23, 23, 23);
-    --preset-color-green-transparent: rgba(0, 151, 0, 0.2);
-    --preset-color-green-1: rgb(0, 158, 0);
+    --preset-color-grey-2: rgb(128, 128, 128);
+    --preset-color-grey-3: rgb(85, 85, 85);
+
+    --preset-color-white-1: rgb(226, 226, 226);
+    --preset-color-white-2: rgb(234, 234, 234);
+    --preset-color-white-3: rgb(210, 210, 210);
+
+    --preset-color-black-1: rgb(32, 32, 32);
+    --preset-color-black-transparent: rgba(32, 32, 32, 0.6);
+
+    --preset-color-green-1: rgb(0, 106, 0);    
+    --preset-color-green-2: rgb(0, 142, 0);
+    --preset-color-green-3: rgb(2, 176, 2);
+
+    --preset-color-green-transparent-light: rgba(0, 151, 0, 0.2);
+    --preset-color-green-transparent-dark: rgba(0, 151, 0, 0.6);
+
+    --preset-box-shadow-right: 5px 15px 35px 5px black;
 
     --preset-font-family-1: 'noto serif';
     --preset-font-family-2: 'montserrat';
-
+    --preset-font-family-3: 'roboto';
 
     --preset-text-1-font-size: 4rem;
     --preset-text-1-font-weight: 800;
@@ -45,7 +65,7 @@ body, html{
 
     --preset-text-4-font-size: 1.5rem;
     --preset-text-4-font-weight: 400;
-    --preset-text-4-line-height: 3rem;
+    --preset-text-4-line-height: 2.5rem;
     --preset-text-4-letter-spacing: 0px;
 
     --preset-text-5-font-size: 1rem;

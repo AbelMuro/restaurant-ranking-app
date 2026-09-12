@@ -1,4 +1,5 @@
 import React, {useEffect, ChangeEvent, useDeferredValue} from 'react';
+import { ChangeTheme } from '~/Common/Functions';
 import { useTypedDispatch, useTypedSelector } from '~/Store';
 import icons from './icons';
 import * as styles from './styles.module.css';
@@ -6,6 +7,7 @@ import * as styles from './styles.module.css';
 function SearchBar() {
     const dispatch = useTypedDispatch();
     const search = useTypedSelector<string>(state => state.search.search);
+    const theme = useTypedSelector<string>(state => state.theme.theme);
     const deferredSearch = useDeferredValue(search);
 
     const handleSearch = (e: ChangeEvent) => {
@@ -14,15 +16,17 @@ function SearchBar() {
         dispatch({type: 'UPDATE_SEARCH', payload: {search: value}});
     };
 
-
-    useEffect(() => {
-        console.log('deferred search');
-    }, [deferredSearch])
-
     return(
         <form className={styles.form}>
             <img className={styles.search_icon} src={icons['magnifyingGlass']}/>
-            <input type='search' className={styles.searchbar} value={search} onChange={handleSearch} name={'search'}/>
+            <input 
+                type='search' 
+                className={ChangeTheme(styles, 'searchbar', theme)} 
+                value={search} 
+                onChange={handleSearch} 
+                name={'search'}
+                placeholder={'Search your places'}
+                />
         </form>
     )
 }

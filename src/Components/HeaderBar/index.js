@@ -1,3 +1,3 @@
-import HeaderBar from './HeaderBar.js';
+import HeaderBar from './HeaderBar';
 
 export default HeaderBar;
