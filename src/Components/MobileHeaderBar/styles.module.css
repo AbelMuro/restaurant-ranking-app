@@ -17,7 +17,7 @@
 
 .bar.light{
     border: 1px solid var(--preset-color-grey-1);
-    background-color: var(--preset-color-white-1);
+    background-color: white;
 }
 
 .bar.dark{
@@ -43,10 +43,14 @@
 .menu{
     width: 300px;
     height: 100vh;
+    padding: 15px;
     position: absolute;
     top: 0px;
     left: 0px;
     box-shadow: var(--preset-box-shadow-right);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .menu.light{
@@ -55,4 +59,48 @@
 
 .menu.dark{
     background-color: var(--preset-color-grey-3);
+}
+
+.menu_close{
+    width: 80px;
+    height: 80px;
+    padding: 0px;
+    background-color: transparent;
+    border: none;
+    align-self: flex-end;
+    cursor: pointer;
+}
+
+.menu_close > img{
+    width: 80px;
+    object-fit: contain;
+}
+
+.menu_links{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.menu_link > button{
+    background-color: transparent;
+    border: none;
+    color: var(--preset-color-white-1);
+    font-family: var(--preset-font-family-3);
+    font-size: var(--preset-text-4-font-size);
+    font-weight: var(--preset-text-4-font-weight);
+    line-height: var(--preset-text-4-line-height);
+    letter-spacing: var(--preset-text-4-letter-spacing);
+    cursor: pointer;
+}
+
+.menu_link.dark > button{
+    color: var(--preset-color-white-1);
+}
+
+.menu_link.light > button{
+    color: var(--preset-color-black-1);
 }

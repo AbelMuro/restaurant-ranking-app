@@ -3,7 +3,7 @@ import {useMediaQuery} from '~/Common/Hooks';
 import MobileHeaderBar from '../MobileHeaderBar';
 import { useTypedSelector } from '~/Store';
 import { ChangeTheme } from '~/Common/Functions';
-import SearchBar from './SearchBar';
+import SearchBar from '~/Common/Components/SearchBar';
 import ThemeButton from './ThemeButton';
 import RefreshButton from './RefreshButton';
 import AddPlaceButton from './AddPlaceButton';
