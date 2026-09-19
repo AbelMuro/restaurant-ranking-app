@@ -1,0 +1,10 @@
+.places{
+    margin: 0px;
+    padding: 0px;
+    color: var(--preset-color-grey-2);
+    font-family: var(--preset-font-family-3);
+    font-size: var(--preset-text-5-font-size);
+    font-weight: var(--preset-text-5-font-weight);
+    line-height: var(--preset-text-5-line-height);
+    letter-spacing: var(--preset-text-5-letter-spacing);
+}

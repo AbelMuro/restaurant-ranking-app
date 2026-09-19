@@ -14,7 +14,7 @@
 }
 
 .header.dark{
-    border-bottom: 1px solid var(--preset-color-white-1);
+    border-bottom: 1px solid var(--preset-color-grey-1);
     background-color: var(--preset-color-grey-3);
 }
 

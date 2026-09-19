@@ -1,0 +1,32 @@
+.container{
+    width: fit-content;
+    height: 40px;
+    border-radius: 30px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--preset-font-family-3);
+    font-size: var(--preset-text-5-font-size);
+    font-weight: var(--preset-text-5-font-weight);
+    line-height: var(--preset-text-5-line-height);
+    letter-spacing: var(--preset-text-5-letter-spacing);
+    background-color: var(--preset-color-green-transparent);
+}
+
+.dot{
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background-color: var(--preset-color-green-1);
+}
+
+.container.light{
+    color: black;
+    border: 1px solid var(--preset-color-white-1);
+}
+
+.container.dark{
+    color: white;
+    border: 1px solid var(--preset-color-grey-1);
+}

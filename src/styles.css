@@ -39,6 +39,8 @@ body, html{
     --preset-color-green-2: rgb(0, 142, 0);
     --preset-color-green-3: rgb(2, 176, 2);
 
+    --preset-color-green-transparent: rgba(0, 106, 0, 0.1);
+
     --preset-color-green-transparent-light: rgba(0, 151, 0, 0.2);
     --preset-color-green-transparent-dark: rgba(0, 151, 0, 0.6);
 
@@ -59,8 +61,8 @@ body, html{
     --preset-text-2-letter-spacing: 0px;
 
     --preset-text-3-font-size: 2rem;
-    --preset-text-3-font-weight: 400;
-    --preset-text-3-line-height: 2rem;
+    --preset-text-3-font-weight: 600;
+    --preset-text-3-line-height: 2.8rem;
     --preset-text-3-letter-spacing: 0px;
 
     --preset-text-4-font-size: 1.5rem;
@@ -70,6 +72,6 @@ body, html{
 
     --preset-text-5-font-size: 1rem;
     --preset-text-5-font-weight: 300;
-    --preset-text-5-line-height: 3rem;
+    --preset-text-5-line-height: 1.5rem;
     --preset-text-5-letter-spacing: 0px;
 }

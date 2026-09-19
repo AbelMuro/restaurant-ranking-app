@@ -6,7 +6,7 @@ import TopTables from './Components/TopTables';
 import './styles.css';
 
 /* 
-    this is where i left off, i was working on the TopTables component
+    this is where i left off, i was working on the Categories component
 */
 
 function App() {
