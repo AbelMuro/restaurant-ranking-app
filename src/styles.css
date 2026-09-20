@@ -37,12 +37,12 @@ body, html{
 
     --preset-color-green-1: rgb(0, 106, 0);    
     --preset-color-green-2: rgb(0, 142, 0);
-    --preset-color-green-3: rgb(2, 176, 2);
+    --preset-color-green-3: #02b002;
 
     --preset-color-green-transparent: rgba(0, 106, 0, 0.1);
 
     --preset-color-green-transparent-light: rgba(0, 151, 0, 0.2);
-    --preset-color-green-transparent-dark: rgba(0, 151, 0, 0.6);
+    --preset-color-green-transparent-dark: rgba(0, 151, 0, 0.4);
 
     --preset-box-shadow-right: 5px 15px 35px 5px black;
 

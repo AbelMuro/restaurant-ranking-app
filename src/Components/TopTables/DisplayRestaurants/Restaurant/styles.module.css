@@ -1,0 +1,81 @@
+.container{ 
+    width: 100%;
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid;
+    display: grid;
+    grid-template-columns: auto auto auto 1fr auto;
+    justify-content: start;
+    column-gap: 10px;
+}
+
+.restaurant_number{
+    margin: 0px;
+    color: black;
+    font-family: var(--preset-font-family-1);
+    font-size: var(--preset-text-3-font-size);
+    font-weight: var(--preset-text-3-font-weight);
+    line-height: var(--preset-text-3-line-height);
+    letter-spacing: var(--preset-text-3-letter-spacing);
+    grid-column: 1/2;
+    grid-row: 1/3;
+    align-self: center;
+}
+
+.restaurant_image{
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: red;
+    grid-column: 2/3;
+    grid-row: 1/3;
+    align-self: center;
+}
+
+.restaurant_title{
+    margin: 0px;
+    font-family: var(--preset-font-family-3);
+    font-size: var(--preset-text-5-font-size);
+    font-weight: 800;
+    line-height: var(--preset-text-5-line-height);
+    letter-spacing: var(--preset-text-5-letter-spacing);
+    grid-column: 3/4;
+    grid-row: 1/2;
+    align-self: end;
+}
+
+.restaurant_category{
+    width: 70px;
+    height: 20px;
+    padding: 0px 5px;
+    border-radius: 7px;
+    background-color: var(--preset-color-white-2);
+    color: var(--preset-color-grey-3);
+    font-family: var(--preset-font-family-3);
+    font-size: var(--preset-text-5-font-size);
+    font-weight: 400;
+    line-height: var(--preset-text-5-line-height);
+    letter-spacing: var(--preset-text-5-letter-spacing);
+    grid-column: 4/5;
+    grid-row: 1/2;
+    justify-self: start
+}
+
+.restaurant_city{
+    margin: 0px;
+    color: var(--preset-color-grey-1);
+    font-family: var(--preset-font-family-3);
+    font-size: var(--preset-text-5-font-size);
+    font-weight: var(--preset-text-5-font-weight);
+    line-height: var(--preset-text-5-line-height);
+    letter-spacing: var(--preset-text-5-letter-spacing);
+    grid-column: 3/5;
+    grid-row: 2/3;
+    align-self: start;
+}
+
+
+.restaurant_currency{
+    grid-column: 5/6;
+    grid-row: 1/2;
+}

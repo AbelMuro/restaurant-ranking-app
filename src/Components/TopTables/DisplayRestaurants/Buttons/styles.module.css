@@ -33,6 +33,14 @@
     position: relative;
 }
 
+.button.light{
+    color: black
+}
+
+.button.dark{
+    color: var(--preset-color-white-1);
+}
+
 .underline{
     width: 100%;
     height: 3px;

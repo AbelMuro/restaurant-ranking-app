@@ -1,6 +1,7 @@
 import React from 'react';
 import Buttons from './Buttons';
 import Categories from './Categories';
+import Restaurant from './Restaurant';
 import * as styles from './styles.module.css';
 
 function DisplayRestaurant() {
@@ -8,6 +9,7 @@ function DisplayRestaurant() {
         <section className={styles.container}>
             <Buttons/>
             <Categories/>
+            <Restaurant/>
         </section>
     )
 }

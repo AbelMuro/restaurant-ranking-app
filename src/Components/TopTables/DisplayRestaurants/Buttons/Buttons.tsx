@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
+import {ChangeTheme} from '~/Common/Functions'
 import { useTypedSelector } from '~/Store';
 import {motion} from 'framer-motion';
 import * as styles from './styles.module.css';
 
 function Buttons() {
     const [option, setOption] = useState<string>('ranked');
+    const theme = useTypedSelector<string>(state => state.theme.theme);
     const ranked = useTypedSelector<number>(state => state.restaurant.ranked)
     const total = useTypedSelector<number>(state => state.restaurant.total);
 
@@ -21,14 +23,14 @@ function Buttons() {
 
     return(
         <div className={styles.container}>
-            <button className={styles.button} onClick={() => handleOption('ranked')}>
+            <button className={ChangeTheme(styles, 'button', theme)} onClick={() => handleOption('ranked')}>
                 <span style={handleSelectedStyles('ranked')}>
                     Ranked
                 </span> &nbsp;
                 9
                 {option === 'ranked' && <motion.div layoutId='underline' className={styles.underline}/>}
             </button>
-            <button className={styles.button} onClick={() => handleOption('want to try')}>
+            <button className={ChangeTheme(styles, 'button', theme)} onClick={() => handleOption('want to try')}>
                 <span style={handleSelectedStyles('want to try')}>
                     Want to try
                 </span> &nbsp;

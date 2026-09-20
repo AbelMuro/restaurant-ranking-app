@@ -6,7 +6,8 @@ import TopTables from './Components/TopTables';
 import './styles.css';
 
 /* 
-    this is where i left off, i was working on the Categories component
+    this is where i left off, i was working on the Categories component, i need to find an algorithm that will 
+    display 4 icons of a currency and highlight them based on a condition
 */
 
 function App() {
