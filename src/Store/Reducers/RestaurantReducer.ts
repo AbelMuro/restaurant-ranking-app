@@ -2,33 +2,39 @@ import { createReducer, createAction, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
     currentRestaurant: {
-        name: '',
-        visited: 0,
-        address: ''
+        address: '',
     },
     total: 0,
     ranked: 0
 }
 
-type Action = {
+type RestaurantAction = {
     currentRestaurant: {
-        name: string,
-        visited: number,
-        address: string,        
-    },
-    total: number,
+        address: string,   
+    }
+}
+
+type TotalAction = {
+    total: number
+}
+
+type RankedAction = {
     ranked: number
 }
 
-const updateRestaurant = createAction<Action>('UPDATE_RESTAURANT');
+const updateRestaurant = createAction<RestaurantAction>('UPDATE_RESTAURANT');
+const updateTotal = createAction<TotalAction>('UPDATE_TOTAL');
+const updateRanked = createAction<RankedAction>('UPDATE_RANKED');
 
 const restaurantReducer = createReducer(initialState, (builder) => {
     builder
-        .addCase(updateRestaurant, (state, action : PayloadAction<Action>) => {
-            state.currentRestaurant.name = action.payload.currentRestaurant.name;
-            state.currentRestaurant.visited = action.payload.currentRestaurant.visited;
+        .addCase(updateRestaurant, (state, action : PayloadAction<RestaurantAction>) => {
             state.currentRestaurant.address = action.payload.currentRestaurant.address;
+        })
+        .addCase(updateTotal, (state, action: PayloadAction<TotalAction>) => {
             state.total = action.payload.total;
+        })
+        .addCase(updateRanked, (state, action: PayloadAction<RankedAction>) => {
             state.ranked = action.payload.ranked;
         })
 });

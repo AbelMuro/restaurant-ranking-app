@@ -24,6 +24,10 @@ body, html{
 }
 
 :root{
+    --preset-color-orange-1: rgb(188, 122, 1);
+    --preset-color-orange-2: rgb(245, 159, 0);
+    --preset-color-orange-transparent: rgba(249, 162, 0, 0.3);
+
     --preset-color-grey-1: rgb(181, 181, 181);
     --preset-color-grey-2: rgb(128, 128, 128);
     --preset-color-grey-3: rgb(85, 85, 85);
@@ -42,7 +46,7 @@ body, html{
     --preset-color-green-transparent: rgba(0, 106, 0, 0.1);
 
     --preset-color-green-transparent-light: rgba(0, 151, 0, 0.2);
-    --preset-color-green-transparent-dark: rgba(0, 151, 0, 0.4);
+    --preset-color-green-transparent-dark: rgba(1, 73, 1, 0.5);
 
     --preset-box-shadow-right: 5px 15px 35px 5px black;
 
@@ -74,4 +78,9 @@ body, html{
     --preset-text-5-font-weight: 300;
     --preset-text-5-line-height: 1.5rem;
     --preset-text-5-letter-spacing: 0px;
+
+    --preset-text-6-font-size: 0.8rem;
+    --preset-text-6-font-weight: 300;
+    --preset-text-6-line-height: 1.3rem;
+    --preset-text-6-letter-spacing: 0px;
 }

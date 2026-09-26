@@ -13,7 +13,7 @@ function Categories() {
 
     const handleStyledCategory = (currentCategory : string) : Record<string, string> => {
         if(currentCategory === category)
-            return {backgroundColor: '#02b002', color: 'white'};
+            return {backgroundColor: theme === 'light' ? '#018801' : '#00bc00', color: 'white'};
         else
             return {};
     }
