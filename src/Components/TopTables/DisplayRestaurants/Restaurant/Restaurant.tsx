@@ -24,6 +24,10 @@ function Restaurants({title, category, city, currency, visited, topPick, address
         dispatch({type: 'UPDATE_RESTAURANT', payload: {currentRestaurant: {address}}})
     }
 
+    const handleDescendingColor = () : Record<string, string>=> {
+        return theme === 'light' ? {color: `hsl(0 0% calc(${number} * 10%))`} : {color: `hsl(0 0% ${100 - (number * 10)}%)`}
+    }
+
     const handleSelectedStyles = () : Record<string, string> => {
         if(address === selectedAddress)
             return theme === 'light' ? 
@@ -43,8 +47,8 @@ function Restaurants({title, category, city, currency, visited, topPick, address
 
     return(
         <article className={styles.restaurant} style={handleSelectedStyles()} onClick={handleClick}>
-            <p className={styles.restaurant_number} style={handleSelectedNumberStyles()}>
-                {number}
+            <p className={styles.restaurant_number} style={handleDescendingColor()}>
+                <span style={handleSelectedNumberStyles()}>{number}</span>
             </p>
             <div className={styles.restaurant_image}></div>
             <h2 className={ChangeTheme(styles, 'restaurant_title', theme)}>

@@ -18,10 +18,24 @@
     transition: all 0.2s linear, opacity 0s, transform 0s;
 }
 
+.gutter {              
+    background-repeat: no-repeat;
+    background-position: 50%;
+    cursor: col-resize;
+    width: 30px;
+    height: 100%;
+    flex-shrink: 0;
+}
+
+.gutter.gutter-horizontal, .gutter.gutter-vertical {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+}
+
 body, html{
     margin: 0px;
     padding: 0px;
 }
+
 
 :root{
     --preset-color-orange-1: rgb(188, 122, 1);
@@ -83,4 +97,13 @@ body, html{
     --preset-text-6-font-weight: 300;
     --preset-text-6-line-height: 1.3rem;
     --preset-text-6-letter-spacing: 0px;
+}
+
+@media(max-width: 730px){
+    .gutter{
+        width: 100% !important;
+        height: 20px !important;
+        cursor: row-resize;
+    }
+
 }

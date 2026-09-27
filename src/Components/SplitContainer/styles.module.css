@@ -1,0 +1,19 @@
+.split-container{
+    width: 100%;
+    display: flex;
+    height: calc(100vh - 60px);
+}
+
+.split-container.light > div{
+    background-color: var(--preset-color-white-2);
+}
+
+.split-container.dark > div{
+    background-color: var(--preset-color-grey-1);
+}
+
+@media(max-width: 730px){
+    .split-container{
+        flex-direction: column;
+    }
+}

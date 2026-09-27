@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {ChangeTheme} from '~/Common/Functions';
 import RestaurantLocation from './RestaurantLocation';
 import TotalRankedPlaces from './TotalRankedPlaces';
@@ -26,4 +26,4 @@ function TopTables() {
     )
 }
 
-export default TopTables
+export default TopTables;
