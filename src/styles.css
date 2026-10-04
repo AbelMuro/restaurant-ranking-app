@@ -38,6 +38,12 @@ body, html{
 
 
 :root{
+    --first-layer: 1;
+    --second-layer: 25;
+    --third-layer: 50;
+    --fourth-layer: 75;
+    --fifth-layer: 100;
+
     --preset-color-orange-1: rgb(188, 122, 1);
     --preset-color-orange-2: rgb(245, 159, 0);
     --preset-color-orange-transparent: rgba(249, 162, 0, 0.3);

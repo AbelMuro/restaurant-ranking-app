@@ -20,3 +20,43 @@
 .place:active{
     background-color: var(--preset-color-green-3);
 }
+
+.overlay{
+    width: 100%;
+    height: 100vh;
+    background-color: var(--preset-color-black-transparent);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: var(--fifth-layer);
+}
+
+.dialog{
+    width: 400px;
+    height: 400px;
+    padding: 25px;
+    border-radius: 15px;
+    background-color: var(--preset-color-white-1);
+    border: none;
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.dialog_close{
+    width: 35px;
+    height: 35px;
+    background-color: transparent;
+    border: none;
+    align-self: end;
+    cursor: pointer;
+}
+
+.dialog_close > img{
+    width: 35px;
+    object-fit: contain;
+}
+

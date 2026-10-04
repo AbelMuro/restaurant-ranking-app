@@ -1,0 +1,58 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.title{
+    margin: 0px;
+    font-family: var(--preset-font-family-3);
+    font-size: var(--preset-text-5-font-size);
+    font-weight: var(--preset-text-5-font-weight);
+    line-height: var(--preset-text-5-line-height);
+    letter-spacing: var(--preset-text-5-letter-spacing);
+}
+
+.title.light{
+    color: var(--preset-color-black-1);
+}
+
+.title.dark{
+    color: var(--preset-color-white-2);
+}
+
+.input{
+    width: 100%;
+    height: 40px;
+    padding: 5px 15px;
+    border-radius: 10px;
+    border: none;
+    font-family: var(--preset-font-family-3);
+    font-size: var(--preset-text-5-font-size);
+    font-weight: var(--preset-text-5-font-weight);
+    line-height: var(--preset-text-5-line-height);
+    letter-spacing: var(--preset-text-5-letter-spacing);
+    background-color: transparent; 
+}
+
+.input.light{
+    color: var(--preset-color-black-1);
+    border: 1px solid var(--preset-color-black-1);
+}
+
+.input.light:focus{
+    border: 2px solid var(--preset-color-black-1);
+}
+
+.input.dark{
+    color: var(--preset-color-white-1);
+    border: 1px solid var(--preset-color-white-3);
+}
+
+.input.dark:focus{
+    border: 2px solid var(--preset-color-white-3);
+}
+
+.input:focus{
+    outline: none;
+}

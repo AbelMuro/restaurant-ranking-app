@@ -1,9 +1,11 @@
 import React, {memo, useState, useEffect} from 'react';
+import { useTypedSelector } from '~/Store';
 import icons from './icons';
 import * as styles from './styles.module.css';
 
 function Map() {
     const [map, setMap] = useState<ReturnType<typeof L.map>>();
+    const {latitude, longitude} = useTypedSelector<{latitude: number, longitude: number}>(state => state.location.user);
 
     const addLayerToMap = () => {
         if(!map) return;
@@ -41,9 +43,15 @@ function Map() {
         addMarkersToMap(10, 23)
     }, [map])
 
+    useEffect(() => {
+        if(!map) return;
+
+        map.panTo({lat: latitude, lng: longitude});
+    }, [map, latitude, longitude])
+
     return(
         <section id='map' className={styles.container}/>
     )
 }
 
-export default Map;
+export default memo(Map);

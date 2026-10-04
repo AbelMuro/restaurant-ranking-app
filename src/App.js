@@ -6,11 +6,8 @@ import HeaderBar from './Components/HeaderBar';
 import './styles.css';
 
 /* 
-    this is where i left off, i was working on the SplitContainer component
-
-    i am fixing a bug with the responsiveness of the component, when i switch from mobile
-    to desktop, the SPlitCOntainer component retains the height value when it gets resized, this is 
-    not supposed to happen
+    this is where i left off, now i need to work on a fetch request that can be used inside the useEffect()
+    in the <AddPlace/> component
 */
 
 function App() {

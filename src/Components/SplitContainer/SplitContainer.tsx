@@ -13,6 +13,7 @@ function SplitContainer() {
 
     return (
         <Split
+            key={mobile ? 'vertical' : 'horizontal'}
             className={ChangeTheme(styles, 'split-container', theme)}
             sizes={[30, 70]}
             minSize={[370, 200]}
