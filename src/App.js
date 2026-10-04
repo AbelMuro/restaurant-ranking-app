@@ -6,8 +6,7 @@ import HeaderBar from './Components/HeaderBar';
 import './styles.css';
 
 /* 
-    this is where i left off, now i need to work on a fetch request that can be used inside the useEffect()
-    in the <AddPlace/> component
+    this is where i left off, i need to figure out how to add additional meta data for each mark in the map
 */
 
 function App() {

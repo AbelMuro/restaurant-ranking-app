@@ -1,3 +1,4 @@
-import marker from './marker.svg';
+import tempMarker from './temp-marker.svg';
+import savedMarker from './saved-marker.svg';
 
-export default {marker};
+export default {tempMarker, savedMarker};

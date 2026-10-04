@@ -3,7 +3,7 @@ import { useTypedSelector, useTypedDispatch } from '~/Store';
 import { ChangeTheme } from '~/Common/Functions';
 import * as styles from './styles.module.css';
 
-function AddPlace() {
+function AddPlaceInput() {
     const [place, setPlace] = useState<string>('');
     const deferredPlace = useDeferredValue<string>(place);
     const theme = useTypedSelector<string>(state => state.theme.theme);
@@ -22,8 +22,42 @@ function AddPlace() {
     }
 
     useEffect(() => {
+        if(!deferredPlace) return
 
+        const fetchRequest = async () => {
+            const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${deferredPlace}+California&format=jsonv2`, {
+                method: 'GET'
+            });
+
+            if(response.status === 200){
+                const result = await response.json();
+                result.forEach((restaurant: any) => {
+                    const lat = restaurant.lat;
+                    const lon = restaurant.lon;
+                    const details = {
+                        name : restaurant.name,
+                        address: restaurant.address
+                    }
+
+                    dispatch({type: 'CLEAR_TEMP_MARKERS'});
+                    dispatch({type: 'CREATE_TEMP_MARKER', payload: {longitude: lon, latitude: lat, details}});
+                })
+            }
+            else{
+                const result = await response.text();
+                console.log(result);
+            }
+
+        };
+
+        fetchRequest();
     }, [deferredPlace])
+
+    useEffect(() => {
+        return () => {
+            dispatch({type: 'CLEAR_TEMP_MARKERS'});
+        }
+    }, [])
 
 
     useEffect(() => {
@@ -49,4 +83,4 @@ function AddPlace() {
     );
 }
 
-export default AddPlace;
+export default AddPlaceInput;

@@ -1,6 +1,6 @@
 import React from 'react';
 import Buttons from './Buttons';
-import AddPlace from './AddPlace';
+import AddPlaceInput from './AddPlaceInput';
 import Categories from './Categories';
 import Restaurant from './Restaurant';
 import * as styles from './styles.module.css';
@@ -15,7 +15,7 @@ function DisplayRestaurant() {
         <section className={styles.container}>
             <Buttons/>
             <Categories/>
-            <AddPlace/>
+            <AddPlaceInput/>
             {allRestaurants.map((restaurant, i) => {
                 const title = restaurant.title;
                 const city = restaurant.city;
