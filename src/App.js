@@ -1,19 +1,22 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import Store from './Store';
+import {PersistGate} from 'redux-persist/integration/react';
+import Store, {persistedStore} from './Store';
 import SplitContainer from './Components/SplitContainer';
 import HeaderBar from './Components/HeaderBar';
 import './styles.css';
 
 /* 
-    this is where i left off, i need to figure out how to add additional meta data for each mark in the map
+    this is where i left off, i need to make sure i do a proper fetch request i <AddPlaceInput/> the name i search for does not come up in the results
 */
 
 function App() {
     return (
         <Provider store={Store}>
-           <HeaderBar/> 
-            <SplitContainer/>           
+            <PersistGate loading={null} persistor={persistedStore}>
+                <HeaderBar/> 
+                <SplitContainer/>                   
+            </PersistGate>
         </Provider>
     )
 }

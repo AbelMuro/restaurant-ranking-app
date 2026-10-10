@@ -5,9 +5,10 @@ import * as styles from './styles.module.css';
 
 function AddPlaceInput() {
     const [place, setPlace] = useState<string>('');
-    const deferredPlace = useDeferredValue<string>(place);
+    const deferredPlace = useDeferredValue<string>(place, '');
     const theme = useTypedSelector<string>(state => state.theme.theme);
     const open = useTypedSelector<boolean>(state => state.location.open);
+    const userLocation = useTypedSelector<{latitude: number, longitude: number}>(state => state.location.user);
     const dispatch = useTypedDispatch();
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -25,23 +26,24 @@ function AddPlaceInput() {
         if(!deferredPlace) return
 
         const fetchRequest = async () => {
-            const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${deferredPlace}+California&format=jsonv2`, {
+            const response = await fetch(`https://api.geoapify.com/v2/places?categories=catering.fast_food&filter=circle:${userLocation.longitude},${userLocation.latitude},10000&name=${deferredPlace}&apiKey=${process.env.apiKey}`, {
                 method: 'GET'
             });
+        
 
             if(response.status === 200){
                 const result = await response.json();
-                result.forEach((restaurant: any) => {
-                    const lat = restaurant.lat;
-                    const lon = restaurant.lon;
-                    const details = {
-                        name : restaurant.name,
-                        address: restaurant.address
-                    }
+                result.features.forEach((feature : any) => {
+                    const properties = feature.properties;
+                    const name = properties.brand;
+                    const city = properties.city;
+                    const country = properties.country;
+                    const lat = properties.lat;
+                    const lon = properties.lon;
 
                     dispatch({type: 'CLEAR_TEMP_MARKERS'});
-                    dispatch({type: 'CREATE_TEMP_MARKER', payload: {longitude: lon, latitude: lat, details}});
-                })
+                    dispatch({type: 'CREATE_TEMP_MARKER', payload: {longitude: lon, latitude: lat, details: {name, city, country}}});                       
+                })   
             }
             else{
                 const result = await response.text();
@@ -68,7 +70,7 @@ function AddPlaceInput() {
     }, [open])
 
     return open && (
-        <form className={styles.container} onBlur={handleBlur}>
+        <form className={styles.container}>
             <label className={ChangeTheme(styles, 'title', theme)}>
                 Enter Restaurant:
             </label>

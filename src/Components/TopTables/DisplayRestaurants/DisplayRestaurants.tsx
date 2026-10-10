@@ -1,15 +1,14 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {useTypedSelector} from '~/Store';
 import Buttons from './Buttons';
 import AddPlaceInput from './AddPlaceInput';
 import Categories from './Categories';
 import Restaurant from './Restaurant';
 import * as styles from './styles.module.css';
 
-function DisplayRestaurant() {
-    const allRestaurants = [
-        {title: 'Brat', city: 'Shoreditch', visited: 1, category: 'BASQUE', topPick: true, currency: '$', address: 'basque'},
-        {title: 'Organic', city: 'San Pablo', visited: 3, category: 'ITALIAN', topPick: false, currency: '$', address: 'italian'}
-    ];
+function DisplayRestaurants() {
+    const allRestaurants = useTypedSelector<Array<{latitude: number, longitude: number, details: {name: string, city: string, country: string}}>>(state => state.location.markers.saved)
+
 
     return (
         <section className={styles.container}>
@@ -17,13 +16,13 @@ function DisplayRestaurant() {
             <Categories/>
             <AddPlaceInput/>
             {allRestaurants.map((restaurant, i) => {
-                const title = restaurant.title;
-                const city = restaurant.city;
-                const visited = restaurant.visited;
-                const category = restaurant.category;
-                const topPick = restaurant.topPick;
-                const currency = restaurant.currency;
-                const address = restaurant.address;
+                const title = restaurant.details.name;
+                const city = restaurant.details.city;
+                const visited = 1;
+                const category = '';
+                const topPick = false;
+                const currency = '$';
+                const address = '';
                 
                 return (
                     <Restaurant number={i + 1} title={title} city={city} visited={visited} category={category} topPick={topPick} currency={currency} address={address}/>
@@ -33,4 +32,4 @@ function DisplayRestaurant() {
     )
 }
 
-export default DisplayRestaurant;
+export default DisplayRestaurants;
