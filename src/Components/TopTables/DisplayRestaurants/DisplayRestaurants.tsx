@@ -16,16 +16,17 @@ function DisplayRestaurants() {
             <Categories/>
             <AddPlaceInput/>
             {allRestaurants.map((restaurant, i) => {
+                const latitude = restaurant.latitude;
+                const longitude = restaurant.longitude;
                 const title = restaurant.details.name;
                 const city = restaurant.details.city;
                 const visited = 1;
                 const category = '';
                 const topPick = false;
                 const currency = '$';
-                const address = '';
                 
                 return (
-                    <Restaurant number={i + 1} title={title} city={city} visited={visited} category={category} topPick={topPick} currency={currency} address={address}/>
+                    <Restaurant number={i + 1} title={title} city={city} visited={visited} category={category} topPick={topPick} currency={currency} latitude={latitude} longitude={longitude}/>
                 )
             })}
         </section>

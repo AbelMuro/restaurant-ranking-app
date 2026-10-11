@@ -1,6 +1,26 @@
 .container{
     width: 100%;
     height: calc(100vh - 60px);
-    position: relative;
-    z-index: var(--first-layer);
+    overflow: hidden;
+}
+
+.popup{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.popup > p{
+    margin: 0px;
+    font-family: var(--preset-font-family-3);
+    font-size: var(--preset-text-5-font-size);
+    font-weight: var(--preset-text-5-font-weight);
+    line-height: var(--preset-text-5-line-height);
+    letter-spacing: var(--preset-text-5-letter-spacing);
+}
+
+.marker_icon{
+    width: 30px;
+    object-fit: contain;
 }

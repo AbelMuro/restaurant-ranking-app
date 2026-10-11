@@ -1,113 +1,116 @@
-import React, {memo, useState, useEffect} from 'react';
+import React, {memo} from 'react';
 import { useTypedSelector, useTypedDispatch } from '~/Store';
-import L from 'leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import icons from './icons';
 import * as styles from './styles.module.css';
+import { Icon } from 'leaflet';
 
 function Map() {
-    const [map, setMap] = useState<ReturnType<typeof L.map>>();
     const {latitude, longitude} = useTypedSelector<{latitude: number, longitude: number}>(state => state.location.user);
     const tempMarkers = useTypedSelector<Array<{latitude: number, longitude: number, details: {name: string, city: string, country: string}}>>(state => state.location.markers.temp);
     const savedMarkers = useTypedSelector<Array<{latitude: number, longitude: number, details: {name: string, city: string, country: string}}>>(state => state.location.markers.saved);
+    const selectedMarker = useTypedSelector<{latitude: number, longitude: number}>(state => state.restaurant.currentRestaurant);
     const dispatch = useTypedDispatch();
 
-    const addLayerToMap = () => {
-        if(!map) return;
-        
-        L.tileLayer(
-            'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-            {maxZoom: 19}
-        ).addTo(map);
 
-        map.trackResize = true;
+    const createSavedMarker = (lat: number, lng: number, name: string, city: string, country: string) => {
+        dispatch({type: 'CREATE_SAVED_MARKER', payload: {latitude: lat, longitude: lng, details: {name, city, country}}});
+        dispatch({type: 'CLEAR_TEMP_MARKERS'});
     }
 
-    const addTempMarkerToMap = (lat: number, long: number, details : {name: string, city: string, country: string}) => {
-        const icon = L.icon({
-            iconUrl: icons[`tempMarker`],
-            iconSize: [40, 48],
-            iconAnchor: [22, 94],
-            popupAnchor: [-3, -76]
-        });
-
-        const marker = L.marker([lat, long], {icon, details, type: 'temp'});
-        marker.addTo(map);
-        marker.on('click', (e: MouseEvent) => {
-            const markerElement = e.target as L.Marker;
-            const details = markerElement.options.details;
-            const {lat, lng} = markerElement.getLatLng();
-            dispatch({type: 'CREATE_SAVED_MARKER', payload: {latitude: lat, longitude: lng, details: {name: details.name, city: details.city, country: details.country}}});
-            dispatch({type: 'CLEAR_TEMP_MARKERS'});
-        });
+    const selectMarker = (typeMarker: string, latitude: number, longitude: number) => {
+        if(selectedMarker.latitude === latitude && selectedMarker.longitude === longitude)
+            return icons['selectedMarker'];
+        else
+            return icons[`${typeMarker}Marker`];
     }
 
-    const addSavedMarkerToMap = (lat: number, long: number) => {
-        const icon = L.icon({
-            iconUrl: icons[`savedMarker`],
-            iconSize: [40, 48],
-            iconAnchor: [22, 94],
-            popupAnchor: [-3, -76]
-        });
+ 
+    return (
+        <MapContainer className={styles.container} center={[latitude, longitude]} zoom={13}>
+            <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            {
+                tempMarkers.map((marker) => {
+                    const latitude = marker.latitude;
+                    const longitude = marker.longitude;
+                    const name = marker.details.name;
+                    const city = marker.details.city;
+                    const country = marker.details.country;
 
-        const marker = L.marker([lat, long], {icon, type: 'saved'});
-        marker.addTo(map);
-    }
+                    return (
+                        <Marker 
+                            position={[latitude, longitude]} 
+                            eventHandlers={{
+                                click: () => createSavedMarker(latitude, longitude, name, city, country),
+                                mouseover: () => {}
+                            }}
+                            icon={new Icon({
+                                iconUrl: selectMarker('temp', latitude, longitude),
+                                iconSize: [38, 95],
+                                iconAnchor: [22, 94],
+                                popupAnchor: [-3, -76],
+                                shadowSize: [68, 95],
+                                shadowAnchor: [22, 94]
+                            })}
+                            >
+                            <Tooltip direction={'top'} opacity={1} offset={[0, -60]}>
+                                <div className={styles.popup}>
+                                    <p>
+                                        Name: {name}
+                                    </p>
+                                    <p>
+                                        City: {city}
+                                    </p>
+                                    <p>
+                                        Country: {country}
+                                    </p>
+                                </div>
+                            </Tooltip>
+                        </Marker>
+                    )
+                })
+            }
+           {
+                savedMarkers.map((marker) => {
+                    const latitude = marker.latitude;
+                    const longitude = marker.longitude;
+                    const name = marker.details.name;
+                    const city = marker.details.city;
+                    const country = marker.details.country;
 
-    const removeTempMarkersFromMap = () => {
-        map.eachLayer((layer : any) => {
-            if(!(layer instanceof L.Marker)) return;
-            if(layer.options.type !== 'temp') return;
-                
-            layer.remove();
-        })
-    }
-
-    useEffect(() => {
-        if(!map) return;
-
-        if(!tempMarkers.length)
-            return removeTempMarkersFromMap();
-
-        tempMarkers.forEach((marker) => {
-            const lat = marker.latitude;
-            const lon = marker.longitude;
-            const details = marker.details;
-            addTempMarkerToMap(lat, lon, details);
-        })
-    }, [tempMarkers, map]);
-
-    useEffect(() => {
-        if(!map) return;
-        savedMarkers.forEach((marker) => {
-            const lat = marker.latitude;
-            const lon = marker.longitude;
-            addSavedMarkerToMap(lat, lon);
-        })
-    }, [savedMarkers, map])
-
-    useEffect(() => {
-        setMap(L.map('map', {
-            center: [0, 0],
-            zoom: 13
-        }))
-    }, [])
-
-    useEffect(() => {
-        if(!map) return;
-
-        addLayerToMap();
-    }, [map])
-
-    useEffect(() => {
-        if(!map) return;
-
-        map.panTo({lat: latitude, lng: longitude});
-    }, [map, latitude, longitude])
-
-    return(
-        <section id='map' className={styles.container}/>
+                    return (
+                        <Marker 
+                            position={[latitude, longitude]}
+                            icon={new Icon({
+                                iconUrl: selectMarker('saved', latitude, longitude),
+                                iconSize: [38, 95],
+                                iconAnchor: [22, 94],
+                                popupAnchor: [-3, -76],
+                                shadowSize: [68, 95],
+                                shadowAnchor: [22, 94]
+                            })}
+                            >
+                            <Popup>
+                                <div className={styles.popup}>
+                                    <p>
+                                        Name: {name}
+                                    </p>
+                                    <p>
+                                        City: {city}
+                                    </p>
+                                    <p>
+                                        Country: {country}
+                                    </p>
+                                </div>
+                            </Popup>
+                        </Marker>
+                    )
+                })
+            }
+        </MapContainer>
     )
+
 }
 
 export default memo(Map);

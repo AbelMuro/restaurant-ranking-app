@@ -23,19 +23,22 @@ function AddPlaceInput() {
     }
 
     useEffect(() => {
-        if(!deferredPlace) return
+        if(!deferredPlace) {
+            dispatch({type: 'CLEAR_TEMP_MARKERS'});
+            return;
+        }
+            
 
         const fetchRequest = async () => {
             const response = await fetch(`https://api.geoapify.com/v2/places?categories=catering.fast_food&filter=circle:${userLocation.longitude},${userLocation.latitude},10000&name=${deferredPlace}&apiKey=${process.env.apiKey}`, {
                 method: 'GET'
             });
-        
 
             if(response.status === 200){
                 const result = await response.json();
                 result.features.forEach((feature : any) => {
                     const properties = feature.properties;
-                    const name = properties.brand;
+                    const name = properties.brand || properties.name;
                     const city = properties.city;
                     const country = properties.country;
                     const lat = properties.lat;

@@ -7,7 +7,7 @@ import HeaderBar from './Components/HeaderBar';
 import './styles.css';
 
 /* 
-    this is where i left off, i need to make sure i do a proper fetch request i <AddPlaceInput/> the name i search for does not come up in the results
+    this is where i left off, i want to re-center the map when the user selects a restaurant in the side bar
 */
 
 function App() {

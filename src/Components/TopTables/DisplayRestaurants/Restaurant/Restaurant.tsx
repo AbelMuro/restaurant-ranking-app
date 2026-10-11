@@ -10,18 +10,19 @@ type Props = {
     currency: string,
     visited: number,
     topPick: boolean,
-    address: string,
+    longitude: number,
+    latitude: number,
     number: number
 }
 
 
-function Restaurants({title, category, city, currency, visited, topPick, address, number} : Props) {
+function Restaurants({title, category, city, currency, visited, topPick, longitude, latitude, number} : Props) {
     const theme = useTypedSelector<string>(state => state.theme.theme);
-    const selectedAddress = useTypedSelector<string>(state => state.restaurant.currentRestaurant.address);
+    const {latitude : selectedLat, longitude: selectedLon} = useTypedSelector<{latitude: number, longitude: number}>(state => state.restaurant.currentRestaurant);
     const dispatch = useTypedDispatch();
 
     const handleClick = () => {
-        dispatch({type: 'UPDATE_RESTAURANT', payload: {currentRestaurant: {address}}})
+        dispatch({type: 'UPDATE_RESTAURANT', payload: {latitude, longitude}})
     }
 
     const handleDescendingColor = () : Record<string, string>=> {
@@ -29,7 +30,7 @@ function Restaurants({title, category, city, currency, visited, topPick, address
     }
 
     const handleSelectedStyles = () : Record<string, string> => {
-        if(address === selectedAddress)
+        if(longitude === selectedLon && latitude === selectedLat)
             return theme === 'light' ? 
                     {backgroundColor: 'rgba(249, 162, 0, 0.2)', borderColor: 'rgba(166, 108, 0, 0.5)'} : 
                     {backgroundColor: 'rgba(249, 162, 0, 0.4)', borderColor: 'rgba(166, 108, 0, 0.7)'}
@@ -38,7 +39,7 @@ function Restaurants({title, category, city, currency, visited, topPick, address
     }
 
     const handleSelectedNumberStyles = () : Record<string, string> => {
-        if(address === selectedAddress)
+        if(longitude === selectedLon && latitude === selectedLon)
             return theme === 'light' ? {color: 'rgb(0, 119, 0)'} : {color: '#00ce00'};
         else
             return {};
@@ -63,9 +64,9 @@ function Restaurants({title, category, city, currency, visited, topPick, address
             <div className={ChangeTheme(styles, 'restaurant_currency', theme)}>
                 $$$$
             </div>
-            <p className={ChangeTheme(styles, 'restaurant_toppick', theme)}>
+            {topPick && <p className={ChangeTheme(styles, 'restaurant_toppick', theme)}>
                 Top Pick
-            </p>
+            </p>}
         </article>
     )
     
