@@ -1,13 +1,15 @@
 import React, {memo} from 'react';
 import { useTypedSelector, useTypedDispatch } from '~/Store';
 import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet';
+import ReCenterMap from './ReCenterMap';
 import 'leaflet/dist/leaflet.css';
 import icons from './icons';
 import * as styles from './styles.module.css';
 import { Icon } from 'leaflet';
 
 function Map() {
-    const {latitude, longitude} = useTypedSelector<{latitude: number, longitude: number}>(state => state.location.user);
+    const latitude = useTypedSelector<number>(state => state.location.center.latitude);
+    const longitude = useTypedSelector<number>(state => state.location.center.longitude);
     const tempMarkers = useTypedSelector<Array<{latitude: number, longitude: number, details: {name: string, city: string, country: string}}>>(state => state.location.markers.temp);
     const savedMarkers = useTypedSelector<Array<{latitude: number, longitude: number, details: {name: string, city: string, country: string}}>>(state => state.location.markers.saved);
     const selectedMarker = useTypedSelector<{latitude: number, longitude: number}>(state => state.restaurant.currentRestaurant);
@@ -71,7 +73,7 @@ function Map() {
                     )
                 })
             }
-           {
+            {
                 savedMarkers.map((marker) => {
                     const latitude = marker.latitude;
                     const longitude = marker.longitude;
@@ -108,6 +110,7 @@ function Map() {
                     )
                 })
             }
+            <ReCenterMap latitude={latitude} longitude={longitude}/>
         </MapContainer>
     )
 

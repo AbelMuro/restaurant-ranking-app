@@ -7,7 +7,7 @@ import HeaderBar from './Components/HeaderBar';
 import './styles.css';
 
 /* 
-    this is where i left off, i want to re-center the map when the user selects a restaurant in the side bar
+    this is where i left off, i want to work on the category components
 */
 
 function App() {

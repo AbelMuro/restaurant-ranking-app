@@ -13,7 +13,7 @@ function TopTables() {
     const showPosition : PositionCallback = (position) => {
        const lat = position.coords.latitude;
        const long = position.coords.longitude
-       dispatch({type: 'UPDATE_LOCATION', payload: {latitude: lat, longitude: long}});
+       dispatch({type: 'UPDATE_CENTER', payload: {latitude: lat, longitude: long}});
     }
 
     const showError : PositionErrorCallback = (error) => {

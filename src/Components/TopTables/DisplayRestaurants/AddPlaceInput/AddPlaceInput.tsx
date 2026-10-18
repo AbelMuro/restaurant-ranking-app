@@ -5,10 +5,10 @@ import * as styles from './styles.module.css';
 
 function AddPlaceInput() {
     const [place, setPlace] = useState<string>('');
-    const deferredPlace = useDeferredValue<string>(place, '');
+    const deferredPlace = useDeferredValue<string | any>(place, {timeoutMs: 1000});
     const theme = useTypedSelector<string>(state => state.theme.theme);
     const open = useTypedSelector<boolean>(state => state.location.open);
-    const userLocation = useTypedSelector<{latitude: number, longitude: number}>(state => state.location.user);
+    const currentLocation = useTypedSelector<{latitude: number, longitude: number}>(state => state.location.center);
     const dispatch = useTypedDispatch();
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -30,7 +30,7 @@ function AddPlaceInput() {
             
 
         const fetchRequest = async () => {
-            const response = await fetch(`https://api.geoapify.com/v2/places?categories=catering.fast_food&filter=circle:${userLocation.longitude},${userLocation.latitude},10000&name=${deferredPlace}&apiKey=${process.env.apiKey}`, {
+            const response = await fetch(`https://api.geoapify.com/v2/places?categories=catering.fast_food&filter=circle:${currentLocation.longitude},${currentLocation.latitude},10000&name=${deferredPlace}&apiKey=${process.env.apiKey}`, {
                 method: 'GET'
             });
 

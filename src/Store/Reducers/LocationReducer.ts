@@ -1,7 +1,7 @@
 import {createReducer, createAction, PayloadAction} from '@reduxjs/toolkit';
 
 type InitialState = {
-    user: {
+    center: {
         latitude: number,
         longitude: number,        
     }
@@ -18,7 +18,7 @@ type Coordinates = {
 }
 
 const initialState : InitialState = {
-    user: {
+    center: {
         latitude: 0,
         longitude: 0,        
     },
@@ -29,7 +29,7 @@ const initialState : InitialState = {
     open: false,
 }
 
-const updateLocation = createAction<Coordinates>('UPDATE_LOCATION');
+const updateCenter = createAction<Coordinates>('UPDATE_CENTER');
 const createSavedMarker = createAction<{details : {name: string, country: string, city: string}, latitude: number, longitude: number}>('CREATE_SAVED_MARKER');
 const clearSavedMarkers = createAction('CLEAR_SAVED_MARKERS');
 const createTempMarker = createAction<{details : {name: string, country: string, city: string}, latitude: number, longitude: number}>('CREATE_TEMP_MARKER');
@@ -38,8 +38,8 @@ const displayInput = createAction('DISPLAY_INPUT');
 
 const LocationReducer = createReducer(initialState, (builder) => {
     builder
-        .addCase(updateLocation, (state, action : PayloadAction<Coordinates>) => {
-            state.user = {
+        .addCase(updateCenter, (state, action : PayloadAction<Coordinates>) => {
+            state.center = {
                 latitude : action.payload.latitude,
                 longitude: action.payload.longitude,
             };

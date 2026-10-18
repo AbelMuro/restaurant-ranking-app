@@ -22,7 +22,8 @@ function Restaurants({title, category, city, currency, visited, topPick, longitu
     const dispatch = useTypedDispatch();
 
     const handleClick = () => {
-        dispatch({type: 'UPDATE_RESTAURANT', payload: {latitude, longitude}})
+        dispatch({type: 'UPDATE_RESTAURANT', payload: {latitude, longitude}});
+        dispatch({type: 'UPDATE_CENTER', payload: {latitude, longitude}});
     }
 
     const handleDescendingColor = () : Record<string, string>=> {
