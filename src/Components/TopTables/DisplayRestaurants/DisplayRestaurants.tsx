@@ -7,8 +7,7 @@ import Restaurant from './Restaurant';
 import * as styles from './styles.module.css';
 
 function DisplayRestaurants() {
-    const allRestaurants = useTypedSelector<Array<{latitude: number, longitude: number, details: {name: string, city: string, country: string}}>>(state => state.location.markers.saved)
-
+    const allRestaurants = useTypedSelector<Array<{latitude: number, longitude: number, name: string, city: string, country: string, category: string}>>(state => state.restaurant.allRestaurants)
 
     return (
         <section className={styles.container}>
@@ -18,15 +17,15 @@ function DisplayRestaurants() {
             {allRestaurants.map((restaurant, i) => {
                 const latitude = restaurant.latitude;
                 const longitude = restaurant.longitude;
-                const title = restaurant.details.name;
-                const city = restaurant.details.city;
+                const title = restaurant.name;
+                const city = restaurant.city;
+                const country = restaurant.category;
                 const visited = 1;
-                const category = '';
                 const topPick = false;
                 const currency = '$';
                 
                 return (
-                    <Restaurant number={i + 1} title={title} city={city} visited={visited} category={category} topPick={topPick} currency={currency} latitude={latitude} longitude={longitude}/>
+                    <Restaurant number={i + 1} title={title} city={city} visited={visited} category={country} topPick={topPick} currency={currency} latitude={latitude} longitude={longitude}/>
                 )
             })}
         </section>

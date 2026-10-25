@@ -7,8 +7,8 @@ function AddPlaceInput() {
     const [place, setPlace] = useState<string>('');
     const deferredPlace = useDeferredValue<string | any>(place, {timeoutMs: 1000});
     const theme = useTypedSelector<string>(state => state.theme.theme);
-    const open = useTypedSelector<boolean>(state => state.location.open);
-    const currentLocation = useTypedSelector<{latitude: number, longitude: number}>(state => state.location.center);
+    const open = useTypedSelector<boolean>(state => state.map.open);
+    const currentLocation = useTypedSelector<{latitude: number, longitude: number}>(state => state.map.center);
     const dispatch = useTypedDispatch();
     const inputRef = useRef<HTMLInputElement>(null);
 

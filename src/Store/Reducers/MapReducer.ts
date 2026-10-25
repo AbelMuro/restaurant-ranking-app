@@ -36,7 +36,7 @@ const createTempMarker = createAction<{details : {name: string, country: string,
 const clearTempMarkers = createAction('CLEAR_TEMP_MARKERS');
 const displayInput = createAction('DISPLAY_INPUT');
 
-const LocationReducer = createReducer(initialState, (builder) => {
+const MapReducer = createReducer(initialState, (builder) => {
     builder
         .addCase(updateCenter, (state, action : PayloadAction<Coordinates>) => {
             state.center = {
@@ -69,4 +69,4 @@ const LocationReducer = createReducer(initialState, (builder) => {
         })
 });
 
-export default LocationReducer;
+export default MapReducer;

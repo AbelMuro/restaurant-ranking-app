@@ -7,17 +7,76 @@ import icons from './icons';
 import * as styles from './styles.module.css';
 import { Icon } from 'leaflet';
 
+const countryToNationality : Record<string, string> = {
+  "United States": "American",
+  "United Kingdom": "British",
+  "Italy": "Italian",
+  "France": "French",
+  "Germany": "German",
+  "Spain": "Spanish",
+  "Portugal": "Portuguese",
+  "Netherlands": "Dutch",
+  "Switzerland": "Swiss",
+  "Austria": "Austrian",
+  "Belgium": "Belgian",
+  "Ireland": "Irish",
+  "Norway": "Norwegian",
+  "Sweden": "Swedish",
+  "Finland": "Finnish",
+  "Denmark": "Danish",
+  "Poland": "Polish",
+  "Czechia": "Czech",
+  "Greece": "Greek",
+  "Turkey": "Turkish",
+  "Russia": "Russian",
+  "Ukraine": "Ukrainian",
+  "China": "Chinese",
+  "Japan": "Japanese",
+  "South Korea": "South Korean",
+  "North Korea": "North Korean",
+  "India": "Indian",
+  "Pakistan": "Pakistani",
+  "Bangladesh": "Bangladeshi",
+  "Sri Lanka": "Sri Lankan",
+  "Thailand": "Thai",
+  "Vietnam": "Vietnamese",
+  "Philippines": "Filipino",
+  "Indonesia": "Indonesian",
+  "Malaysia": "Malaysian",
+  "Singapore": "Singaporean",
+  "Australia": "Australian",
+  "New Zealand": "New Zealander",
+  "Canada": "Canadian",
+  "Mexico": "Mexican",
+  "Brazil": "Brazilian",
+  "Argentina": "Argentine",
+  "Chile": "Chilean",
+  "Colombia": "Colombian",
+  "Peru": "Peruvian",
+  "Venezuela": "Venezuelan",
+  "South Africa": "South African",
+  "Saudi Arabia": "Saudi",
+  "United Arab Emirates": "Emirati",
+  "Israel": "Israeli",
+  "Egypt": "Egyptian",
+  "Morocco": "Moroccan",
+  "Nigeria": "Nigerian",
+  "Kenya": "Kenyan",
+};
+
 function Map() {
-    const latitude = useTypedSelector<number>(state => state.location.center.latitude);
-    const longitude = useTypedSelector<number>(state => state.location.center.longitude);
-    const tempMarkers = useTypedSelector<Array<{latitude: number, longitude: number, details: {name: string, city: string, country: string}}>>(state => state.location.markers.temp);
-    const savedMarkers = useTypedSelector<Array<{latitude: number, longitude: number, details: {name: string, city: string, country: string}}>>(state => state.location.markers.saved);
-    const selectedMarker = useTypedSelector<{latitude: number, longitude: number}>(state => state.restaurant.currentRestaurant);
+    const latitude = useTypedSelector<number>(state => state.map.center.latitude);
+    const longitude = useTypedSelector<number>(state => state.map.center.longitude);
+    const tempMarkers = useTypedSelector<Array<{latitude: number, longitude: number, details: {name: string, city: string, country: string}}>>(state => state.map.markers.temp);
+    const savedMarkers = useTypedSelector<Array<{latitude: number, longitude: number, details: {name: string, city: string, country: string}}>>(state => state.map.markers.saved);
+    const selectedMarker = useTypedSelector<{latitude: number, longitude: number}>(state => state.restaurant.selectedRestaurant);
     const dispatch = useTypedDispatch();
 
 
     const createSavedMarker = (lat: number, lng: number, name: string, city: string, country: string) => {
+        const countrySynonym = countryToNationality[country];
         dispatch({type: 'CREATE_SAVED_MARKER', payload: {latitude: lat, longitude: lng, details: {name, city, country}}});
+        dispatch({type: 'UPDATE_ALL_RESTAURANTS', payload: {latitude: lat, longitude: lng, name, city, country, category: countrySynonym}});
         dispatch({type: 'CLEAR_TEMP_MARKERS'});
     }
 

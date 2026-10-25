@@ -12,13 +12,13 @@ type Props = {
     topPick: boolean,
     longitude: number,
     latitude: number,
-    number: number
+    number: number,
 }
 
 
 function Restaurants({title, category, city, currency, visited, topPick, longitude, latitude, number} : Props) {
     const theme = useTypedSelector<string>(state => state.theme.theme);
-    const {latitude : selectedLat, longitude: selectedLon} = useTypedSelector<{latitude: number, longitude: number}>(state => state.restaurant.currentRestaurant);
+    const {latitude : selectedLat, longitude: selectedLon} = useTypedSelector<{latitude: number, longitude: number}>(state => state.restaurant.selectedRestaurant);
     const dispatch = useTypedDispatch();
 
     const handleClick = () => {

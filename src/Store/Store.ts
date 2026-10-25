@@ -18,7 +18,7 @@ const config = getPersistConfig({
     key: 'root',
     storage,
     rootReducer: Reducer,
-    whitelist: ['location.user', 'location.markers.saved']
+    whitelist: ['map.center', 'map.markers.saved', 'restaurant.allRestaurants']
 });  
 
 const persistedReducer = persistReducer(config, Reducer);

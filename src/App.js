@@ -7,7 +7,7 @@ import HeaderBar from './Components/HeaderBar';
 import './styles.css';
 
 /* 
-    this is where i left off, i want to work on the category components
+    this is where i left off, i need to work on the search component
 */
 
 function App() {

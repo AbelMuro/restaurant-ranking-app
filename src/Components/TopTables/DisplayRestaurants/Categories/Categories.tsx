@@ -1,10 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useTypedSelector} from '~/Store';
 import {ChangeTheme} from '~/Common/Functions';
 import * as styles from './styles.module.css';
 
+
+
 function Categories() {
+    const [categories, setCategories] = useState<Array<string>>([]);
     const theme = useTypedSelector<string>(state => state.theme.theme);
+    const allRestaurants = useTypedSelector<Array<{latitude: number, longitude: number, name: string, city: string, country: string, category: string}>>(state => state.restaurant.allRestaurants)
     const [category, setCategory] = useState<string>('All');
 
     const handleCategory = (category : string) => {
@@ -18,43 +22,40 @@ function Categories() {
             return {};
     }
 
+    useEffect(() => {
+        let allCategories = allRestaurants.map((restaurant) => {
+            return restaurant.category;
+        });
+
+        allCategories = [...new Set(allCategories)];
+        setCategories(allCategories);
+
+    }, [allRestaurants])
+
     return(
         <section className={styles.container}>
-            <div 
-                className={ChangeTheme(styles, 'category', theme)} 
-                onClick={() => handleCategory('All')}
-                style={handleStyledCategory('All')}
-                >
-                All
-            </div>
-            <div 
-                className={ChangeTheme(styles, 'category', theme)} 
-                onClick={() => handleCategory('British')}
-                style={handleStyledCategory('British')}
-                >
-                British
-            </div>
-            <div 
-                className={ChangeTheme(styles, 'category', theme)} 
-                onClick={() => handleCategory('Spanish')}
-                style={handleStyledCategory('Spanish')}
-                >
-                Spanish
-            </div>
-            <div 
-                className={ChangeTheme(styles, 'category', theme)} 
-                onClick={() => handleCategory('Italian')}
-                style={handleStyledCategory('Italian')}
-                >
-                Italian
-            </div>
-            <div 
-                className={ChangeTheme(styles, 'category', theme)} 
-                onClick={() => handleCategory('European')}
-                style={handleStyledCategory('European')}
-                >
-                European
-            </div>
+            {categories.length !== 0 && 
+                <div 
+                    className={ChangeTheme(styles, 'category', theme)} 
+                    onClick={() => handleCategory('All')}
+                    style={handleStyledCategory('All')}
+                    >
+                    All
+                </div>}
+
+            {
+                categories.map((category) => {
+                    return (            
+                        <div 
+                            className={ChangeTheme(styles, 'category', theme)} 
+                            onClick={() => handleCategory(category)}
+                            style={handleStyledCategory(category)}
+                            >
+                            {category}
+                        </div>
+                    );
+                })
+            }
         </section>
     )
 }
