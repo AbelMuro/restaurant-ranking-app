@@ -5,7 +5,8 @@ type InitialState = {
         latitude: number,
         longitude: number,
     },
-    allRestaurants: Array<{latitude: number, longitude: number, name: string, city: string, country: string, category: string}>
+    allRestaurants: Array<{latitude: number, longitude: number, name: string, city: string, country: string, category: string}>,
+    selectedCategory: string
     total: number,
     ranked: number
 }
@@ -16,6 +17,7 @@ const initialState : InitialState = {
         longitude: 0
     },
     allRestaurants: [],
+    selectedCategory: 'All',
     total: 0,
     ranked: 0
 }
@@ -42,10 +44,15 @@ type RankedAction = {
     ranked: number
 }
 
+type CategoryAction = {
+    category: string
+}
+
 const updateRestaurant = createAction<RestaurantAction>('UPDATE_RESTAURANT');
 const updateTotal = createAction<TotalAction>('UPDATE_TOTAL');
 const updateRanked = createAction<RankedAction>('UPDATE_RANKED');
 const AllRestaurants = createAction<AllRestaurantsAction>('UPDATE_ALL_RESTAURANTS');
+const updateCategory = createAction<CategoryAction>('UPDATE_CATEGORY');
 
 const restaurantReducer = createReducer(initialState, (builder) => {
     builder
@@ -61,6 +68,9 @@ const restaurantReducer = createReducer(initialState, (builder) => {
         })
         .addCase(AllRestaurants, (state, action: PayloadAction<AllRestaurantsAction>) => {
             state.allRestaurants.push(action.payload);
+        })
+        .addCase(updateCategory, (state, action: PayloadAction<CategoryAction>) => {
+            state.selectedCategory = action.payload.category;
         })
 });
 

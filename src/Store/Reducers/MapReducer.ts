@@ -6,8 +6,8 @@ type InitialState = {
         longitude: number,        
     }
     markers: {
-        temp: Array<{latitude: number, longitude: number, details: {name: string, city: string, country: string}}>,
-        saved: Array<{latitude: number, longitude: number, details: {name: string, city: string, country: string}}>,
+        temp: Array<{latitude: number, longitude: number, name: string, city: string, country: string, category: string}>,
+        saved: Array<{latitude: number, longitude: number, name: string, city: string, country: string, category: string}>,
     },
     open: boolean
 }
@@ -29,10 +29,12 @@ const initialState : InitialState = {
     open: false,
 }
 
+type MarkerAction = {name: string, country: string, city: string, latitude: number, longitude: number, category: string};
+
 const updateCenter = createAction<Coordinates>('UPDATE_CENTER');
-const createSavedMarker = createAction<{details : {name: string, country: string, city: string}, latitude: number, longitude: number}>('CREATE_SAVED_MARKER');
+const createSavedMarker = createAction<MarkerAction>('CREATE_SAVED_MARKER');
 const clearSavedMarkers = createAction('CLEAR_SAVED_MARKERS');
-const createTempMarker = createAction<{details : {name: string, country: string, city: string}, latitude: number, longitude: number}>('CREATE_TEMP_MARKER');
+const createTempMarker = createAction<MarkerAction>('CREATE_TEMP_MARKER');
 const clearTempMarkers = createAction('CLEAR_TEMP_MARKERS');
 const displayInput = createAction('DISPLAY_INPUT');
 
@@ -44,19 +46,25 @@ const MapReducer = createReducer(initialState, (builder) => {
                 longitude: action.payload.longitude,
             };
         })
-        .addCase(createSavedMarker, (state, action: PayloadAction<{latitude: number, longitude: number, details : {name: string, country: string, city: string}}>) => {
+        .addCase(createSavedMarker, (state, action: PayloadAction<MarkerAction>) => {
             const latitude = action.payload.latitude;
             const longitude = action.payload.longitude;
-            const details = action.payload.details;
+            const name = action.payload.name;
+            const city = action.payload.city;
+            const country = action.payload.country;
+            const category = action.payload.category;
 
-            state.markers.saved.push({latitude, longitude, details});
+            state.markers.saved.push({latitude, longitude, name, city, country, category});
         })
-        .addCase(createTempMarker, (state, action: PayloadAction<{latitude: number, longitude: number, details : {name: string, country: string, city: string}}>) => {
+        .addCase(createTempMarker, (state, action: PayloadAction<MarkerAction>) => {
             const latitude = action.payload.latitude;
             const longitude = action.payload.longitude;
-            const details = action.payload.details;
+            const name = action.payload.name;
+            const city = action.payload.city;
+            const country = action.payload.country;
+            const category = action.payload.category;
 
-            state.markers.temp.push({latitude, longitude, details});
+            state.markers.temp.push({latitude, longitude, name, city, country, category});
         })
         .addCase(displayInput, (state) => {
             state.open = !state.open;

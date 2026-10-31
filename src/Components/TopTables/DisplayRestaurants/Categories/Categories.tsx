@@ -1,15 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import {useTypedSelector} from '~/Store';
+import {useTypedSelector, useTypedDispatch} from '~/Store';
 import {ChangeTheme} from '~/Common/Functions';
 import * as styles from './styles.module.css';
-
-
 
 function Categories() {
     const [categories, setCategories] = useState<Array<string>>([]);
     const theme = useTypedSelector<string>(state => state.theme.theme);
     const allRestaurants = useTypedSelector<Array<{latitude: number, longitude: number, name: string, city: string, country: string, category: string}>>(state => state.restaurant.allRestaurants)
+    const search = useTypedSelector<string>(state => state.search.search);
     const [category, setCategory] = useState<string>('All');
+    const dispatch = useTypedDispatch();
 
     const handleCategory = (category : string) => {
         setCategory(category);
@@ -31,6 +31,10 @@ function Categories() {
         setCategories(allCategories);
 
     }, [allRestaurants])
+
+    useEffect(() => {
+        dispatch({type: 'UPDATE_CATEGORY', payload: {category}});
+    }, [category])
 
     return(
         <section className={styles.container}>

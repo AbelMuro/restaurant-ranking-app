@@ -1,4 +1,5 @@
-import React, {memo} from 'react';
+import React, {memo, useEffect} from 'react';
+import {useRestaurants} from '~/Common/Hooks';
 import { useTypedSelector, useTypedDispatch } from '~/Store';
 import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet';
 import ReCenterMap from './ReCenterMap';
@@ -67,15 +68,16 @@ const countryToNationality : Record<string, string> = {
 function Map() {
     const latitude = useTypedSelector<number>(state => state.map.center.latitude);
     const longitude = useTypedSelector<number>(state => state.map.center.longitude);
-    const tempMarkers = useTypedSelector<Array<{latitude: number, longitude: number, details: {name: string, city: string, country: string}}>>(state => state.map.markers.temp);
-    const savedMarkers = useTypedSelector<Array<{latitude: number, longitude: number, details: {name: string, city: string, country: string}}>>(state => state.map.markers.saved);
+    const tempMarkers = useTypedSelector<Array<{latitude: number, longitude: number, name: string, city: string, country: string, category: string}>>(state => state.map.markers.temp);
+    const savedMarkers = useTypedSelector<Array<{latitude: number, longitude: number, name: string, city: string, country: string, category: string}>>(state => state.map.markers.saved);
     const selectedMarker = useTypedSelector<{latitude: number, longitude: number}>(state => state.restaurant.selectedRestaurant);
     const dispatch = useTypedDispatch();
+    const [displayMarkers] = useRestaurants(savedMarkers);    
 
 
     const createSavedMarker = (lat: number, lng: number, name: string, city: string, country: string) => {
         const countrySynonym = countryToNationality[country];
-        dispatch({type: 'CREATE_SAVED_MARKER', payload: {latitude: lat, longitude: lng, details: {name, city, country}}});
+        dispatch({type: 'CREATE_SAVED_MARKER', payload: {latitude: lat, longitude: lng, name, city, country, category: countrySynonym}});
         dispatch({type: 'UPDATE_ALL_RESTAURANTS', payload: {latitude: lat, longitude: lng, name, city, country, category: countrySynonym}});
         dispatch({type: 'CLEAR_TEMP_MARKERS'});
     }
@@ -95,9 +97,9 @@ function Map() {
                 tempMarkers.map((marker) => {
                     const latitude = marker.latitude;
                     const longitude = marker.longitude;
-                    const name = marker.details.name;
-                    const city = marker.details.city;
-                    const country = marker.details.country;
+                    const name = marker.name;
+                    const city = marker.city;
+                    const country = marker.country;
 
                     return (
                         <Marker 
@@ -133,12 +135,12 @@ function Map() {
                 })
             }
             {
-                savedMarkers.map((marker) => {
+                displayMarkers.map((marker) => {
                     const latitude = marker.latitude;
                     const longitude = marker.longitude;
-                    const name = marker.details.name;
-                    const city = marker.details.city;
-                    const country = marker.details.country;
+                    const name = marker.name;
+                    const city = marker.city;
+                    const country = marker.country;
 
                     return (
                         <Marker 

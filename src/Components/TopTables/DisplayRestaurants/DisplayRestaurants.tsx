@@ -1,20 +1,23 @@
-import React, {useEffect} from 'react';
-import {useTypedSelector} from '~/Store';
+import React from 'react';
+import { useTypedSelector } from '~/Store';
+import {useRestaurants} from '~/Common/Hooks';
 import Buttons from './Buttons';
 import AddPlaceInput from './AddPlaceInput';
 import Categories from './Categories';
 import Restaurant from './Restaurant';
 import * as styles from './styles.module.css';
 
+
 function DisplayRestaurants() {
-    const allRestaurants = useTypedSelector<Array<{latitude: number, longitude: number, name: string, city: string, country: string, category: string}>>(state => state.restaurant.allRestaurants)
+    const allRestaurants = useTypedSelector(state => state.restaurant.allRestaurants);
+    const [displayRestaurants] = useRestaurants(allRestaurants);
 
     return (
         <section className={styles.container}>
             <Buttons/>
             <Categories/>
             <AddPlaceInput/>
-            {allRestaurants.map((restaurant, i) => {
+            {displayRestaurants.map((restaurant, i) => {
                 const latitude = restaurant.latitude;
                 const longitude = restaurant.longitude;
                 const title = restaurant.name;

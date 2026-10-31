@@ -7,7 +7,7 @@ import HeaderBar from './Components/HeaderBar';
 import './styles.css';
 
 /* 
-    this is where i left off, i need to work on the search component
+    this is where i left off, i need to check if the data being persisted in the localstorage is still there
 */
 
 function App() {

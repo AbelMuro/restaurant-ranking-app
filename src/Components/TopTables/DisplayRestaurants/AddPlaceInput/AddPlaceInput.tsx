@@ -45,7 +45,7 @@ function AddPlaceInput() {
                     const lon = properties.lon;
 
                     dispatch({type: 'CLEAR_TEMP_MARKERS'});
-                    dispatch({type: 'CREATE_TEMP_MARKER', payload: {longitude: lon, latitude: lat, details: {name, city, country}}});                       
+                    dispatch({type: 'CREATE_TEMP_MARKER', payload: {longitude: lon, latitude: lat, name, city, country, category: country}});                       
                 })   
             }
             else{
