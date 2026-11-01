@@ -1,11 +1,9 @@
 import { createReducer, createAction, PayloadAction } from "@reduxjs/toolkit";
+import {Restaurant, Restaurants, Coordinates} from '~/Common/Types';
 
 type InitialState = {
-    selectedRestaurant: {
-        latitude: number,
-        longitude: number,
-    },
-    allRestaurants: Array<{latitude: number, longitude: number, name: string, city: string, country: string, category: string}>,
+    selectedRestaurant: Coordinates,
+    allRestaurants: Restaurants,
     selectedCategory: string
     total: number,
     ranked: number
@@ -22,20 +20,6 @@ const initialState : InitialState = {
     ranked: 0
 }
 
-type RestaurantAction = {
-    latitude: number,   
-    longitude: number,
-}
-
-type AllRestaurantsAction = {
-    latitude: number,
-    longitude: number,
-    name: string, 
-    city: string, 
-    country: string,
-    category: string
-}
-
 type TotalAction = {
     total: number
 }
@@ -48,15 +32,15 @@ type CategoryAction = {
     category: string
 }
 
-const updateRestaurant = createAction<RestaurantAction>('UPDATE_RESTAURANT');
+const updateRestaurant = createAction<Coordinates>('UPDATE_RESTAURANT');
 const updateTotal = createAction<TotalAction>('UPDATE_TOTAL');
 const updateRanked = createAction<RankedAction>('UPDATE_RANKED');
-const AllRestaurants = createAction<AllRestaurantsAction>('UPDATE_ALL_RESTAURANTS');
+const AllRestaurants = createAction<Restaurant>('UPDATE_ALL_RESTAURANTS');
 const updateCategory = createAction<CategoryAction>('UPDATE_CATEGORY');
 
 const restaurantReducer = createReducer(initialState, (builder) => {
     builder
-        .addCase(updateRestaurant, (state, action : PayloadAction<RestaurantAction>) => {
+        .addCase(updateRestaurant, (state, action : PayloadAction<Coordinates>) => {
             state.selectedRestaurant.latitude = action.payload.latitude;
             state.selectedRestaurant.longitude = action.payload.longitude;
         })
@@ -66,7 +50,7 @@ const restaurantReducer = createReducer(initialState, (builder) => {
         .addCase(updateRanked, (state, action: PayloadAction<RankedAction>) => {
             state.ranked = action.payload.ranked;
         })
-        .addCase(AllRestaurants, (state, action: PayloadAction<AllRestaurantsAction>) => {
+        .addCase(AllRestaurants, (state, action: PayloadAction<Restaurant>) => {
             state.allRestaurants.push(action.payload);
         })
         .addCase(updateCategory, (state, action: PayloadAction<CategoryAction>) => {

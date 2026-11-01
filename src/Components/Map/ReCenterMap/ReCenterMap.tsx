@@ -1,10 +1,8 @@
 import React, {useEffect} from 'react';
 import {useMap} from 'react-leaflet';
+import { Coordinates } from '~/Common/Types';
 
-type Props = {
-    latitude: number,
-    longitude: number
-};
+type Props = Coordinates;
 
 function ReCenterMap({latitude, longitude} : Props) {
     const map = useMap();

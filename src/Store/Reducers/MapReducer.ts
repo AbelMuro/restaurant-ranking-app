@@ -1,4 +1,5 @@
 import {createReducer, createAction, PayloadAction} from '@reduxjs/toolkit';
+import {Restaurant, Restaurants} from '~/Common/Types';
 
 type InitialState = {
     center: {
@@ -6,8 +7,8 @@ type InitialState = {
         longitude: number,        
     }
     markers: {
-        temp: Array<{latitude: number, longitude: number, name: string, city: string, country: string, category: string}>,
-        saved: Array<{latitude: number, longitude: number, name: string, city: string, country: string, category: string}>,
+        temp: Restaurants,
+        saved: Restaurants,
     },
     open: boolean
 }
@@ -29,7 +30,7 @@ const initialState : InitialState = {
     open: false,
 }
 
-type MarkerAction = {name: string, country: string, city: string, latitude: number, longitude: number, category: string};
+type MarkerAction = Restaurant;
 
 const updateCenter = createAction<Coordinates>('UPDATE_CENTER');
 const createSavedMarker = createAction<MarkerAction>('CREATE_SAVED_MARKER');

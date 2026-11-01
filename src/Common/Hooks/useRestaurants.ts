@@ -1,9 +1,6 @@
 import {useState, useEffect, Dispatch, SetStateAction} from 'react';
 import {useTypedSelector} from '~/Store';
-
-
-type Restaurants = Array<{latitude: number, longitude: number, name: string, city: string, country: string, category: string}>;
-
+import {Restaurants} from '~/Common/Types';
 
 export default function useRestaurants(allRestaurants : Restaurants) : [Restaurants, Dispatch<SetStateAction<Restaurants>>]{
     const [displayRestaurants, setDisplayRestaurants] = useState<Restaurants>(allRestaurants);
@@ -43,7 +40,7 @@ export default function useRestaurants(allRestaurants : Restaurants) : [Restaura
             filteredRestaurants = filterSearch(filterCategory(allRestaurants))
 
         setDisplayRestaurants(filteredRestaurants);
-    }, [search]);
+    }, [search, allRestaurants]);
 
     useEffect(() => {
         if(category === 'All') {
@@ -61,6 +58,7 @@ export default function useRestaurants(allRestaurants : Restaurants) : [Restaura
 
         setDisplayRestaurants(restaurants);
     }, [category]);
+
 
     return [displayRestaurants, setDisplayRestaurants];
 }

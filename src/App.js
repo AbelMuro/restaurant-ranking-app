@@ -7,7 +7,7 @@ import HeaderBar from './Components/HeaderBar';
 import './styles.css';
 
 /* 
-    this is where i left off, i need to check if the data being persisted in the localstorage is still there
+    this is where i left off, i need to fix the visual bugs concerning the dialog in the Map component
 */
 
 function App() {
