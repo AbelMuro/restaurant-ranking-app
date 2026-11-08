@@ -1,11 +1,15 @@
-import React, {useState} from 'react';
+import React, {SetStateAction, useState, Dispatch} from 'react';
 import {ChangeTheme} from '~/Common/Functions'
 import { useTypedSelector } from '~/Store';
 import {motion} from 'framer-motion';
 import * as styles from './styles.module.css';
 
-function Buttons() {
-    const [option, setOption] = useState<string>('ranked');
+type Props = {
+    option: string
+    setOption: Dispatch<SetStateAction<string>>
+}
+
+function RankedOrTryButtons({option, setOption} : Props) {
     const theme = useTypedSelector<string>(state => state.theme.theme);
     const ranked = useTypedSelector<number>(state => state.restaurant.ranked)
     const total = useTypedSelector<number>(state => state.restaurant.total);
@@ -42,4 +46,4 @@ function Buttons() {
     )
 }
 
-export default Buttons;
+export default RankedOrTryButtons;

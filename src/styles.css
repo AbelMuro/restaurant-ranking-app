@@ -51,6 +51,7 @@ body, html{
     --preset-color-grey-1: rgb(181, 181, 181);
     --preset-color-grey-2: rgb(128, 128, 128);
     --preset-color-grey-3: rgb(85, 85, 85);
+    --preset-color-grey-transparent: rgba(70, 70, 70, 0.5);
 
     --preset-color-white-1: rgb(226, 226, 226);
     --preset-color-white-2: rgb(234, 234, 234);

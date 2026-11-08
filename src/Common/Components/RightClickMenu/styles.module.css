@@ -1,0 +1,40 @@
+.container{
+    position: relative;
+}
+
+.contextMenu{
+    width: fit-content;
+    height: fit-content;
+    border-radius: 15px;
+    padding: 10px 5px;
+    position: absolute;
+    top: 50%;
+    left: 30%;
+    background-color: var(--preset-color-grey-transparent);
+    border: 1px solid var(--preset-color-grey-1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.option{
+    background-color: transparent;
+    border: none;
+    padding: 5px;
+    border-radius: 10px;
+    font-family: var(--preset-font-family-3);
+    font-size: var(--preset-text-5-font-size);
+    font-weight: var(--preset-text-5-font-weight);
+    line-height: var(--preset-text-5-line-height);
+    letter-spacing: var(--preset-text-5-letter-spacing);
+    color: white;
+    cursor: pointer;
+}
+
+.option:hover{
+    background-color: var(--preset-color-green-1);
+}
+
+.option:active{
+    background-color: var(--preset-color-green-2);
+}

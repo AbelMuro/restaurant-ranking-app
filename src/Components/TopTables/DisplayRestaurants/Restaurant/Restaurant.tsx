@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, MouseEvent} from 'react';
 import {useTypedSelector, useTypedDispatch} from '~/Store';
+import RightClickMenu from '~/Common/Components/RightClickMenu';
 import {ChangeTheme} from '~/Common/Functions';
 import * as styles from './styles.module.css';
 
@@ -47,28 +48,32 @@ function Restaurants({title, category, city, currency, visited, topPick, longitu
     }
 
 
+
     return(
-        <article className={styles.restaurant} style={handleSelectedStyles()} onClick={handleClick}>
-            <p className={styles.restaurant_number} style={handleDescendingColor()}>
-                <span style={handleSelectedNumberStyles()}>{number}</span>
-            </p>
-            <div className={styles.restaurant_image}></div>
-            <h2 className={ChangeTheme(styles, 'restaurant_title', theme)}>
-                {title}
-            </h2>
-            <div className={styles.restaurant_category}>
-                {category}
-            </div>
-            <p className={ChangeTheme(styles, 'restaurant_city', theme)}>
-                {city} - been {visited}x
-            </p>
-            <div className={ChangeTheme(styles, 'restaurant_currency', theme)}>
-                $$$$
-            </div>
-            {topPick && <p className={ChangeTheme(styles, 'restaurant_toppick', theme)}>
-                Top Pick
-            </p>}
-        </article>
+        <RightClickMenu>
+            <article className={styles.restaurant} style={handleSelectedStyles()} onClick={handleClick}>
+                <p className={styles.restaurant_number} style={handleDescendingColor()}>
+                    <span style={handleSelectedNumberStyles()}>{number}</span>
+                </p>
+                <div className={styles.restaurant_image}></div>
+                <h2 className={ChangeTheme(styles, 'restaurant_title', theme)}>
+                    {title}
+                </h2>
+                <div className={styles.restaurant_category}>
+                    {category}
+                </div>
+                <p className={ChangeTheme(styles, 'restaurant_city', theme)}>
+                    {city} - been {visited}x
+                </p>
+                <div className={ChangeTheme(styles, 'restaurant_currency', theme)}>
+                    $$$$
+                </div>
+                {topPick && <p className={ChangeTheme(styles, 'restaurant_toppick', theme)}>
+                    Top Pick
+                </p>}
+            </article>            
+        </RightClickMenu>
+
     )
     
 }

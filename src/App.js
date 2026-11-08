@@ -7,7 +7,7 @@ import HeaderBar from './Components/HeaderBar';
 import './styles.css';
 
 /* 
-    this is where i left off, i need to fix the visual bugs concerning the dialog in the Map component
+    this is where i left off, i need to finish the design for the RIghtClickMenu component
 */
 
 function App() {

@@ -84,8 +84,10 @@ function Map() {
         const city = restaurant.city;
         const country = restaurant.country;
         const category = restaurant.category;
-        dispatch({type: 'CREATE_SAVED_MARKER', payload: {latitude, longitude, name, city, country, category}});
-        dispatch({type: 'UPDATE_ALL_RESTAURANTS', payload: {latitude, longitude, name, city, country, category}});
+        const tryRest = true;
+        const rank = Infinity;
+        dispatch({type: 'CREATE_SAVED_MARKER', payload: {latitude, longitude, name, city, country, category, try: tryRest, rank}});
+        dispatch({type: 'UPDATE_ALL_RESTAURANTS', payload: {latitude, longitude, name, city, country, category, try: tryRest, rank}});
         dispatch({type: 'CLEAR_TEMP_MARKERS'});
     }
 
@@ -95,28 +97,9 @@ function Map() {
         else
             return icons[`${typeMarker}Marker`];
     }
-
-    const handleOpen = (restaurant: Restaurant) => {
-        const latitude = restaurant.latitude;
-        const longitude = restaurant.longitude;
-        const name = restaurant.name;
-        const city = restaurant.city;
-        const country = restaurant.country;
-        const category = restaurant.category;
-        selectedRestaurant.current = {latitude, longitude, name, city, country, category}
-        setOpen(!open);
-    };
-
  
     return (
-        <>
-            {open && <div className={styles.overlay}>
-                <dialog className={styles.dialog} open={true}>
-                    <h2 className={styles.dialog_title}>
-
-                    </h2>
-                </dialog>
-            </div>}
+        <>    
             <MapContainer className={styles.container} center={[latitude, longitude]} zoom={13}>
                 <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" />
                 {
@@ -127,11 +110,14 @@ function Map() {
                         const city = marker.city;
                         const country = marker.country;
                         const countrySynonym = countryToNationality[country];
+                        const tryRest = false;
+                        const rank = Infinity;
+
                         return (
                             <Marker 
                                 position={[latitude, longitude]} 
                                 eventHandlers={{
-                                    click: () => handleOpen({latitude, longitude, name, city, country, category: countrySynonym}),
+                                    click: () => createSavedMarker({latitude, longitude, name, city, country, category: countrySynonym, try: tryRest, rank}),
                                     mouseover: () => {}
                                 }}
                                 icon={new Icon({

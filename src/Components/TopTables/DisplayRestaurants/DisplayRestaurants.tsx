@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState, useMemo} from 'react';
 import { useTypedSelector } from '~/Store';
 import {useRestaurants} from '~/Common/Hooks';
-import Buttons from './Buttons';
+import { Restaurant as RestaurantType } from '~/Common/Types';
+import RankedOrTryButtons from './RankedOrTryButtons';
 import AddPlaceInput from './AddPlaceInput';
 import Categories from './Categories';
 import Restaurant from './Restaurant';
@@ -9,15 +10,29 @@ import * as styles from './styles.module.css';
 
 
 function DisplayRestaurants() {
+    const [option, setOption] = useState<string>('ranked');
     const allRestaurants = useTypedSelector(state => state.restaurant.allRestaurants);
     const [displayRestaurants] = useRestaurants(allRestaurants);
 
+    const currentRestaurants = useMemo(() => {
+        if(option === 'ranked')
+            return displayRestaurants.filter((restaurant : RestaurantType) => {
+                return restaurant.rank !== Infinity;
+            });
+        else{
+            return displayRestaurants.filter((restaurant: RestaurantType) => {
+                return restaurant.try 
+            })
+        }
+        
+    }, [option, displayRestaurants])
+
     return (
         <section className={styles.container}>
-            <Buttons/>
+            <RankedOrTryButtons option={option} setOption={setOption}/>
             <Categories/>
             <AddPlaceInput/>
-            {displayRestaurants.map((restaurant, i) => {
+            {currentRestaurants.map((restaurant, i) => {
                 const latitude = restaurant.latitude;
                 const longitude = restaurant.longitude;
                 const title = restaurant.name;
