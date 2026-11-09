@@ -1,7 +1,7 @@
 import React, {useState, useMemo} from 'react';
 import { useTypedSelector } from '~/Store';
 import {useRestaurants} from '~/Common/Hooks';
-import { Restaurant as RestaurantType } from '~/Common/Types';
+import { Restaurant as RestaurantType, Restaurants } from '~/Common/Types';
 import RankedOrTryButtons from './RankedOrTryButtons';
 import AddPlaceInput from './AddPlaceInput';
 import Categories from './Categories';
@@ -14,18 +14,17 @@ function DisplayRestaurants() {
     const allRestaurants = useTypedSelector(state => state.restaurant.allRestaurants);
     const [displayRestaurants] = useRestaurants(allRestaurants);
 
-    const currentRestaurants = useMemo(() => {
+    const currentRestaurants : Restaurants = useMemo(() => {
         if(option === 'ranked')
             return displayRestaurants.filter((restaurant : RestaurantType) => {
-                return restaurant.rank !== Infinity;
+                return restaurant.rank !== null;
             });
         else{
             return displayRestaurants.filter((restaurant: RestaurantType) => {
-                return restaurant.try 
+                return restaurant.try; 
             })
         }
-        
-    }, [option, displayRestaurants])
+    }, [option, displayRestaurants]);
 
     return (
         <section className={styles.container}>
@@ -33,17 +32,8 @@ function DisplayRestaurants() {
             <Categories/>
             <AddPlaceInput/>
             {currentRestaurants.map((restaurant, i) => {
-                const latitude = restaurant.latitude;
-                const longitude = restaurant.longitude;
-                const title = restaurant.name;
-                const city = restaurant.city;
-                const country = restaurant.category;
-                const visited = 1;
-                const topPick = false;
-                const currency = '$';
-                
                 return (
-                    <Restaurant number={i + 1} title={title} city={city} visited={visited} category={country} topPick={topPick} currency={currency} latitude={latitude} longitude={longitude}/>
+                    <Restaurant {...restaurant}/>
                 )
             })}
         </section>

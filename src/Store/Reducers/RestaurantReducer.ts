@@ -24,19 +24,20 @@ type TotalAction = {
     total: number
 }
 
-type RankedAction = {
-    ranked: number
+type RankAction = {
+    id: string
 }
 
 type CategoryAction = {
     category: string
 }
 
+
 const updateRestaurant = createAction<Coordinates>('UPDATE_RESTAURANT');
 const updateTotal = createAction<TotalAction>('UPDATE_TOTAL');
-const updateRanked = createAction<RankedAction>('UPDATE_RANKED');
 const AllRestaurants = createAction<Restaurant>('UPDATE_ALL_RESTAURANTS');
 const updateCategory = createAction<CategoryAction>('UPDATE_CATEGORY');
+const rankRestaurant = createAction<RankAction>('RANK_RESTAURANT');
 
 const restaurantReducer = createReducer(initialState, (builder) => {
     builder
@@ -47,14 +48,25 @@ const restaurantReducer = createReducer(initialState, (builder) => {
         .addCase(updateTotal, (state, action: PayloadAction<TotalAction>) => {
             state.total = action.payload.total;
         })
-        .addCase(updateRanked, (state, action: PayloadAction<RankedAction>) => {
-            state.ranked = action.payload.ranked;
-        })
         .addCase(AllRestaurants, (state, action: PayloadAction<Restaurant>) => {
             state.allRestaurants.push(action.payload);
         })
         .addCase(updateCategory, (state, action: PayloadAction<CategoryAction>) => {
             state.selectedCategory = action.payload.category;
+        })
+        .addCase(rankRestaurant, (state, action: PayloadAction<RankAction>) => {
+            const restaurantId = action.payload.id;
+            const allRestaurants = state.allRestaurants;
+
+            allRestaurants.forEach((restaurant) => {
+                if(restaurant.id === restaurantId){
+                    restaurant.rank = 1;
+                    restaurant.try = false;
+                }
+                    
+
+            })
+      
         })
 });
 

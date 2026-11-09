@@ -1,8 +1,9 @@
-import React, {memo, useState, useRef} from 'react';
+import React, {memo} from 'react';
 import {useRestaurants} from '~/Common/Hooks';
 import { useTypedSelector, useTypedDispatch } from '~/Store';
 import {Restaurant, Restaurants, Coordinates} from '~/Common/Types';
 import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet';
+import {v4 as uuid} from 'uuid';
 import ReCenterMap from './ReCenterMap';
 import 'leaflet/dist/leaflet.css';
 import icons from './icons';
@@ -67,8 +68,6 @@ const countryToNationality : Record<string, string> = {
 };
 
 function Map() {
-    const [open, setOpen] = useState<boolean>(false);
-    const selectedRestaurant = useRef<Restaurant>(null);
     const latitude = useTypedSelector<number>(state => state.map.center.latitude);
     const longitude = useTypedSelector<number>(state => state.map.center.longitude);
     const tempMarkers = useTypedSelector<Restaurants>(state => state.map.markers.temp);
@@ -84,10 +83,11 @@ function Map() {
         const city = restaurant.city;
         const country = restaurant.country;
         const category = restaurant.category;
+        const id = uuid();
         const tryRest = true;
-        const rank = Infinity;
-        dispatch({type: 'CREATE_SAVED_MARKER', payload: {latitude, longitude, name, city, country, category, try: tryRest, rank}});
-        dispatch({type: 'UPDATE_ALL_RESTAURANTS', payload: {latitude, longitude, name, city, country, category, try: tryRest, rank}});
+        const rank = null;
+        dispatch({type: 'CREATE_SAVED_MARKER', payload: {latitude, longitude, name, city, country, category, try: tryRest, rank, id}});
+        dispatch({type: 'UPDATE_ALL_RESTAURANTS', payload: {latitude, longitude, name, city, country, category, try: tryRest, rank, id}});
         dispatch({type: 'CLEAR_TEMP_MARKERS'});
     }
 
@@ -112,12 +112,13 @@ function Map() {
                         const countrySynonym = countryToNationality[country];
                         const tryRest = false;
                         const rank = Infinity;
-
+                        const id = marker.id;
+                
                         return (
                             <Marker 
                                 position={[latitude, longitude]} 
                                 eventHandlers={{
-                                    click: () => createSavedMarker({latitude, longitude, name, city, country, category: countrySynonym, try: tryRest, rank}),
+                                    click: () => createSavedMarker({latitude, longitude, name, city, country, category: countrySynonym, try: tryRest, rank, id}),
                                     mouseover: () => {}
                                 }}
                                 icon={new Icon({

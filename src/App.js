@@ -7,7 +7,8 @@ import HeaderBar from './Components/HeaderBar';
 import './styles.css';
 
 /* 
-    this is where i left off, i need to finish the design for the RIghtClickMenu component
+    this is where i left off, i need to implement the drag and drop functionality for <DisplayRestaurants/> and i also need
+    to re-organize the rank numbers when a new item is added
 */
 
 function App() {

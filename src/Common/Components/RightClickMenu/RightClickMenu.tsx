@@ -1,28 +1,50 @@
 import React, {ReactNode, MouseEvent, useState, useRef, useEffect} from 'react';
+import { useTypedDispatch } from '~/Store';
 import * as styles from './styles.module.css';
 
 type Props = {
-    children: ReactNode
+    children: ReactNode,
+    restaurantId: string
 }
 
-function RightClickMenu({children}: Props) {
-    const [open, setOpen] = useState<boolean>(false);
+function RightClickMenu({children, restaurantId}: Props) {
+    const [openMenu, setOpenMenu] = useState<boolean>(false);
+    const dispatch = useTypedDispatch();
 
     const handleRightClick = (e: MouseEvent) => {
         e.preventDefault();
-        setOpen(true);
+        setOpenMenu(true);
     }
+
+    const handleClick = (e: PointerEvent)=> {
+        setOpenMenu(false);
+    }
+    
+    const handleRestaurant = () => {
+        dispatch({type: 'RANK_RESTAURANT', payload: {id: restaurantId}});
+    }
+
+    useEffect(() => {
+        document.addEventListener('click', handleClick);
+
+        return () => {
+            document.removeEventListener('click', handleClick);
+        }
+    }, [])
 
 
     return (
-        <section className={styles.container} onContextMenu={handleRightClick}>
-            {children}
-            {open && <div className={styles.contextMenu}>
-                <button className={styles.option}>
-                    Select Rank for Restaurant?
-                </button>
-            </div>}
-        </section>
+        <>
+            <section className={styles.container} onContextMenu={handleRightClick}>
+                {children}
+                {openMenu && <div className={styles.contextMenu}>
+                    <button className={styles.option} onClick={handleRestaurant}>
+                        Move to Ranked Restaurants?
+                    </button>
+                </div>}
+            </section>    
+        </>
+
     )
 }
 

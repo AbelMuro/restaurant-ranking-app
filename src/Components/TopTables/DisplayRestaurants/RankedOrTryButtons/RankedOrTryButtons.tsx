@@ -1,5 +1,6 @@
-import React, {SetStateAction, useState, Dispatch} from 'react';
+import React, {SetStateAction, useMemo, Dispatch} from 'react';
 import {ChangeTheme} from '~/Common/Functions'
+import {Restaurants, Restaurant} from '~/Common/Types';
 import { useTypedSelector } from '~/Store';
 import {motion} from 'framer-motion';
 import * as styles from './styles.module.css';
@@ -11,8 +12,7 @@ type Props = {
 
 function RankedOrTryButtons({option, setOption} : Props) {
     const theme = useTypedSelector<string>(state => state.theme.theme);
-    const ranked = useTypedSelector<number>(state => state.restaurant.ranked)
-    const total = useTypedSelector<number>(state => state.restaurant.total);
+    const allRestaurants = useTypedSelector<Restaurants>(state => state.restaurant.allRestaurants);
 
     const handleOption = (option: string) => {
         setOption(option);
@@ -25,20 +25,34 @@ function RankedOrTryButtons({option, setOption} : Props) {
             return {};
     }
 
+    const ranked = useMemo(() => {
+        return allRestaurants.reduce((acc, restaurant) => {
+            const rank = restaurant.rank;
+            return rank !== null ? acc + 1 : acc;
+        }, 0)   
+    }, [allRestaurants]);
+
+    const tryRest = useMemo(() => {
+        return allRestaurants.reduce((acc, restaurant) => {
+            const tryRest = restaurant.try;
+            return tryRest ? acc + 1 : acc;
+        }, 0)
+    }, [allRestaurants])
+
     return(
         <div className={styles.container}>
             <button className={ChangeTheme(styles, 'button', theme)} onClick={() => handleOption('ranked')}>
                 <span style={handleSelectedStyles('ranked')}>
                     Ranked
                 </span> &nbsp;
-                9
+                {ranked}
                 {option === 'ranked' && <motion.div layoutId='underline' className={styles.underline}/>}
             </button>
             <button className={ChangeTheme(styles, 'button', theme)} onClick={() => handleOption('want to try')}>
                 <span style={handleSelectedStyles('want to try')}>
                     Want to try
                 </span> &nbsp;
-                    3
+                    {tryRest}
                 {option === 'want to try' && <motion.div layoutId='underline' className={styles.underline}/>}
             </button>
             <hr/>

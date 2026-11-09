@@ -1,23 +1,11 @@
 import React, {useState, MouseEvent} from 'react';
 import {useTypedSelector, useTypedDispatch} from '~/Store';
+import {Restaurant} from '~/Common/Types';
 import RightClickMenu from '~/Common/Components/RightClickMenu';
 import {ChangeTheme} from '~/Common/Functions';
 import * as styles from './styles.module.css';
 
-type Props = {
-    title: string,
-    category: string,
-    city: string,
-    currency: string,
-    visited: number,
-    topPick: boolean,
-    longitude: number,
-    latitude: number,
-    number: number,
-}
-
-
-function Restaurants({title, category, city, currency, visited, topPick, longitude, latitude, number} : Props) {
+function Restaurants({id, latitude, longitude, name, city, country, category, rank, try : tryRest} : Restaurant ) {
     const theme = useTypedSelector<string>(state => state.theme.theme);
     const {latitude : selectedLat, longitude: selectedLon} = useTypedSelector<{latitude: number, longitude: number}>(state => state.restaurant.selectedRestaurant);
     const dispatch = useTypedDispatch();
@@ -28,7 +16,7 @@ function Restaurants({title, category, city, currency, visited, topPick, longitu
     }
 
     const handleDescendingColor = () : Record<string, string>=> {
-        return theme === 'light' ? {color: `hsl(0 0% calc(${number} * 10%))`} : {color: `hsl(0 0% ${100 - (number * 10)}%)`}
+        return theme === 'light' ? {color: `hsl(0 0% calc(${rank} * 10%))`} : {color: `hsl(0 0% ${100 - (rank * 10)}%)`}
     }
 
     const handleSelectedStyles = () : Record<string, string> => {
@@ -48,27 +36,26 @@ function Restaurants({title, category, city, currency, visited, topPick, longitu
     }
 
 
-
     return(
-        <RightClickMenu>
+        <RightClickMenu restaurantId={id}>
             <article className={styles.restaurant} style={handleSelectedStyles()} onClick={handleClick}>
-                <p className={styles.restaurant_number} style={handleDescendingColor()}>
-                    <span style={handleSelectedNumberStyles()}>{number}</span>
-                </p>
+                {!tryRest && <p className={styles.restaurant_number} style={handleDescendingColor()}>
+                    <span style={handleSelectedNumberStyles()}>{rank}</span>
+                </p>}
                 <div className={styles.restaurant_image}></div>
                 <h2 className={ChangeTheme(styles, 'restaurant_title', theme)}>
-                    {title}
+                    {name}
                 </h2>
                 <div className={styles.restaurant_category}>
                     {category}
                 </div>
                 <p className={ChangeTheme(styles, 'restaurant_city', theme)}>
-                    {city} - been {visited}x
+                    {city} - been {1}x
                 </p>
                 <div className={ChangeTheme(styles, 'restaurant_currency', theme)}>
                     $$$$
                 </div>
-                {topPick && <p className={ChangeTheme(styles, 'restaurant_toppick', theme)}>
+                {false && <p className={ChangeTheme(styles, 'restaurant_toppick', theme)}>
                     Top Pick
                 </p>}
             </article>            
