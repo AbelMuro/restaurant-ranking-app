@@ -7,8 +7,9 @@ import HeaderBar from './Components/HeaderBar';
 import './styles.css';
 
 /* 
-    this is where i left off, i need to implement the drag and drop functionality for <DisplayRestaurants/> and i also need
-    to re-organize the rank numbers when a new item is added
+    this is where i left off, i need to fix the issue regarding the rank exchange between the restaurants
+    when they are being dragged and dropped. i may need to find a better way to dispatch the 'rearrange restaurants'
+    action in the useDrop hook
 */
 
 function App() {

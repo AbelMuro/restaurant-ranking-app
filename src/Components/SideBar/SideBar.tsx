@@ -6,7 +6,7 @@ import DisplayRestaurants from './DisplayRestaurants';
 import {useTypedSelector, useTypedDispatch} from '~/Store';
 import * as styles from './styles.module.css';
 
-function TopTables() {
+function SideBar() {
     const theme = useTypedSelector<string>(state => state.theme.theme);
     const dispatch = useTypedDispatch();
 
@@ -52,4 +52,4 @@ function TopTables() {
     )
 }
 
-export default memo(TopTables);
+export default memo(SideBar);

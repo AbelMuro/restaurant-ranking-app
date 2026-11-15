@@ -9,6 +9,7 @@
     justify-content: start;
     column-gap: 10px;
     cursor: pointer;
+    transform: translate(0, 0)
 }
 
 .restaurant_number{

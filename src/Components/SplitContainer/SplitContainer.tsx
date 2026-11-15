@@ -3,7 +3,7 @@ import {useMediaQuery} from '~/Common/Hooks';
 import {ChangeTheme} from '~/Common/Functions';
 import { useTypedSelector } from '~/Store';
 import Split from 'react-split';
-import TopTables from '../TopTables';
+import SideBar from '../SideBar';
 import Map from '../Map';
 import * as styles from './styles.module.css';
 
@@ -23,7 +23,7 @@ function SplitContainer() {
             direction={mobile ? 'vertical' : 'horizontal'}
             cursor={mobile ? 'row-resize' : "col-resize"}
         >
-            <TopTables/>
+            <SideBar/>
             <Map/>
         </Split>            
     )

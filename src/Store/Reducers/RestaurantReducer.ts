@@ -32,12 +32,23 @@ type CategoryAction = {
     category: string
 }
 
+type ReArrangeAction = {
+    draggedItem: {
+        id: string,
+        rank: number
+    },
+    currentItem: {
+        id: string,
+        rank: number
+    }
+}
 
 const updateRestaurant = createAction<Coordinates>('UPDATE_RESTAURANT');
 const updateTotal = createAction<TotalAction>('UPDATE_TOTAL');
 const AllRestaurants = createAction<Restaurant>('UPDATE_ALL_RESTAURANTS');
 const updateCategory = createAction<CategoryAction>('UPDATE_CATEGORY');
 const rankRestaurant = createAction<RankAction>('RANK_RESTAURANT');
+const reArrangeRestaurants = createAction<ReArrangeAction>('REARRANGE_RESTAURANTS');
 
 const restaurantReducer = createReducer(initialState, (builder) => {
     builder
@@ -57,16 +68,33 @@ const restaurantReducer = createReducer(initialState, (builder) => {
         .addCase(rankRestaurant, (state, action: PayloadAction<RankAction>) => {
             const restaurantId = action.payload.id;
             const allRestaurants = state.allRestaurants;
+            const rankedRestaurants = allRestaurants.filter((restaurant) => {
+                return !restaurant.try;
+            });
+            const restaurantToUpdate = allRestaurants.filter((restaurant) => {
+                return restaurant.id === restaurantId;
+            })[0];
+
+            restaurantToUpdate.rank = rankedRestaurants.length + 1;
+            restaurantToUpdate.try = false;
+        })
+        .addCase(reArrangeRestaurants, (state, action: PayloadAction<ReArrangeAction>) => {
+            const allRestaurants = state.allRestaurants;
+            const currentItem = action.payload.currentItem;
+            const draggedItem = action.payload.draggedItem;
 
             allRestaurants.forEach((restaurant) => {
-                if(restaurant.id === restaurantId){
-                    restaurant.rank = 1;
-                    restaurant.try = false;
+                if(restaurant.id === currentItem.id){
+                    restaurant.rank = draggedItem.rank;
+                    console.log('currentItem', draggedItem.rank)
                 }
                     
-
+                else if(restaurant.id === draggedItem.id){
+                    restaurant.rank = currentItem.rank;
+                    console.log('draggedItem', currentItem.rank)
+                }
+                    
             })
-      
         })
 });
 

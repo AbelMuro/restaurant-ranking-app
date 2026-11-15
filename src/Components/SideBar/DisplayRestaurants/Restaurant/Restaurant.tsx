@@ -1,14 +1,62 @@
-import React, {useState, MouseEvent} from 'react';
+import React, {useRef} from 'react';
+import {useDrag, useDrop} from 'react-dnd';
 import {useTypedSelector, useTypedDispatch} from '~/Store';
 import {Restaurant} from '~/Common/Types';
 import RightClickMenu from '~/Common/Components/RightClickMenu';
 import {ChangeTheme} from '~/Common/Functions';
 import * as styles from './styles.module.css';
 
+type Item = {
+    id: string,
+    rank: number
+}
+
 function Restaurants({id, latitude, longitude, name, city, country, category, rank, try : tryRest} : Restaurant ) {
+    const dispatch = useTypedDispatch();    
+    const isHoveringOnce = useRef<boolean>(false);
+    const [{isDragging}, drag] = useDrag({
+        type: 'restaurant',
+        item: () => ({
+            id,
+            rank
+        }),
+        canDrag: () => {
+            return !tryRest;
+        },
+        isDragging: (monitor) => {
+            const itemBeingDragged = monitor.getItem();
+            return id === itemBeingDragged.id;
+        },
+        collect: (monitor) => ({
+            isDragging: monitor.isDragging()
+        })
+    });
+    const [, drop] = useDrop<Item>({
+        accept: 'restaurant',
+        hover: (draggedItem) => {
+            if(isHoveringOnce.current)
+                return;
+            else
+                isHoveringOnce.current = true;
+
+            const draggedItemId = draggedItem.id
+            const currentItemId = id;
+
+            if(draggedItemId === currentItemId)
+                return;
+
+            const draggedItemRank = draggedItem.rank;
+            const currentItemRank = rank;
+
+            dispatch({type: 'REARRANGE_RESTAURANTS', payload: {draggedItem: {id: draggedItemId, rank: draggedItemRank}, currentItem: {id: currentItemId, rank: currentItemRank}}})
+        },
+        drop: () => {
+            isHoveringOnce.current = false;
+        }
+    });
     const theme = useTypedSelector<string>(state => state.theme.theme);
     const {latitude : selectedLat, longitude: selectedLon} = useTypedSelector<{latitude: number, longitude: number}>(state => state.restaurant.selectedRestaurant);
-    const dispatch = useTypedDispatch();
+
 
     const handleClick = () => {
         dispatch({type: 'UPDATE_RESTAURANT', payload: {latitude, longitude}});
@@ -38,10 +86,16 @@ function Restaurants({id, latitude, longitude, name, city, country, category, ra
 
     return(
         <RightClickMenu restaurantId={id}>
-            <article className={styles.restaurant} style={handleSelectedStyles()} onClick={handleClick}>
-                {!tryRest && <p className={styles.restaurant_number} style={handleDescendingColor()}>
-                    <span style={handleSelectedNumberStyles()}>{rank}</span>
-                </p>}
+            <article 
+                className={styles.restaurant} 
+                onClick={handleClick}
+                style={isDragging ? {opacity: 0, ...handleSelectedStyles()} : {opacity: 1, ...handleSelectedStyles()}}
+                ref={(ref) => {drag(drop(ref))}}
+                >
+                {!tryRest && 
+                    <p className={styles.restaurant_number} style={handleDescendingColor()}>
+                        <span style={handleSelectedNumberStyles()}>{rank}</span>
+                    </p>}
                 <div className={styles.restaurant_image}></div>
                 <h2 className={ChangeTheme(styles, 'restaurant_title', theme)}>
                     {name}
