@@ -1,4 +1,5 @@
 import React, {useState, ChangeEvent, useDeferredValue, useEffect, useRef} from 'react';
+import {motion} from 'framer-motion';
 import { useTypedSelector, useTypedDispatch } from '~/Store';
 import { ChangeTheme } from '~/Common/Functions';
 import * as styles from './styles.module.css';
@@ -73,7 +74,7 @@ function AddPlaceInput() {
     }, [open])
 
     return open && (
-        <form className={styles.container}>
+        <motion.form className={styles.container}>
             <label className={ChangeTheme(styles, 'title', theme)}>
                 Enter Restaurant:
             </label>
@@ -84,7 +85,7 @@ function AddPlaceInput() {
                 className={ChangeTheme(styles, 'input', theme)}
                 ref={inputRef}
                 />            
-        </form>
+        </motion.form>
     );
 }
 

@@ -7,9 +7,11 @@ import HeaderBar from './Components/HeaderBar';
 import './styles.css';
 
 /* 
-    this is where i left off, i need to fix the issue regarding the rank exchange between the restaurants
-    when they are being dragged and dropped. i may need to find a better way to dispatch the 'rearrange restaurants'
-    action in the useDrop hook
+    this is where i left off, i need to fix the issue that starts when i drag an item over two other items
+    when the dragged item is over one of the items, the rank exchange happens, but when the dragged item is 
+    over the second item, the rank exchange still happens but the first item retains the new rank as well
+
+    and now we have two items with the same rank
 */
 
 function App() {

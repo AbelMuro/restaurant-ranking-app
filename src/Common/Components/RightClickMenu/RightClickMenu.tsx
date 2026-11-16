@@ -1,4 +1,5 @@
 import React, {ReactNode, MouseEvent, useState, useRef, useEffect} from 'react';
+import {motion} from 'framer-motion';
 import { useTypedDispatch } from '~/Store';
 import * as styles from './styles.module.css';
 
@@ -34,17 +35,14 @@ function RightClickMenu({children, restaurantId}: Props) {
 
 
     return (
-        <>
-            <section className={styles.container} onContextMenu={handleRightClick}>
+            <motion.section className={styles.container} onContextMenu={handleRightClick} layout>
                 {children}
                 {openMenu && <div className={styles.contextMenu}>
                     <button className={styles.option} onClick={handleRestaurant}>
                         Move to Ranked Restaurants?
                     </button>
                 </div>}
-            </section>    
-        </>
-
+            </motion.section>    
     )
 }
 

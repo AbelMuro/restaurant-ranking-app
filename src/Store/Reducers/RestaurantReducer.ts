@@ -77,6 +77,12 @@ const restaurantReducer = createReducer(initialState, (builder) => {
 
             restaurantToUpdate.rank = rankedRestaurants.length + 1;
             restaurantToUpdate.try = false;
+            allRestaurants.sort((a, b) => {
+                if(a.rank > b.rank)
+                    return 1;
+                else
+                    return -1;
+            });
         })
         .addCase(reArrangeRestaurants, (state, action: PayloadAction<ReArrangeAction>) => {
             const allRestaurants = state.allRestaurants;
@@ -92,9 +98,15 @@ const restaurantReducer = createReducer(initialState, (builder) => {
                 else if(restaurant.id === draggedItem.id){
                     restaurant.rank = currentItem.rank;
                     console.log('draggedItem', currentItem.rank)
-                }
-                    
-            })
+                } 
+            });
+
+            allRestaurants.sort((a, b) => {
+                if(a.rank > b.rank)
+                    return 1;
+                else
+                    return -1;
+            });
         })
 });
 

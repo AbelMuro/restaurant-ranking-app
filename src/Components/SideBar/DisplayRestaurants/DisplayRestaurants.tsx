@@ -1,4 +1,5 @@
 import React, {useState, useMemo} from 'react';
+import {motion} from 'framer-motion';
 import { useTypedSelector } from '~/Store';
 import {useRestaurants} from '~/Common/Hooks';
 import { Restaurant as RestaurantType, Restaurants } from '~/Common/Types';
@@ -8,7 +9,6 @@ import Categories from './Categories';
 import Restaurant from './Restaurant';
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
-import DropLine from './DropLine';
 import * as styles from './styles.module.css';
 
 function DisplayRestaurants() {
@@ -17,10 +17,12 @@ function DisplayRestaurants() {
     const [displayRestaurants] = useRestaurants(allRestaurants);
 
     const currentRestaurants : Restaurants = useMemo(() => {
-        if(option === 'ranked')
+        if(option === 'ranked'){
             return displayRestaurants.filter((restaurant : RestaurantType) => {
                 return restaurant.rank !== null;
-            });
+            });            
+        }
+
         else{
             return displayRestaurants.filter((restaurant: RestaurantType) => {
                 return restaurant.try; 
@@ -29,7 +31,7 @@ function DisplayRestaurants() {
     }, [option, displayRestaurants]);
 
     return (
-        <section className={styles.container}>
+        <motion.section className={styles.container} layout>
             <RankedOrTryButtons option={option} setOption={setOption}/>
             <Categories/>
             <AddPlaceInput/>
@@ -38,11 +40,11 @@ function DisplayRestaurants() {
                     const key = `${restaurant.id} ${restaurant.rank}`
 
                     return (
-                        <Restaurant {...restaurant}/>
+                        <Restaurant {...restaurant} key={key}/>
                     )
                 })}
             </DndProvider>
-        </section>
+        </motion.section>
     )
 }
 

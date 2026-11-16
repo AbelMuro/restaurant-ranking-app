@@ -40,7 +40,7 @@ function RankedOrTryButtons({option, setOption} : Props) {
     }, [allRestaurants])
 
     return(
-        <div className={styles.container}>
+        <motion.div className={styles.container} layout>
             <button className={ChangeTheme(styles, 'button', theme)} onClick={() => handleOption('ranked')}>
                 <span style={handleSelectedStyles('ranked')}>
                     Ranked
@@ -56,7 +56,7 @@ function RankedOrTryButtons({option, setOption} : Props) {
                 {option === 'want to try' && <motion.div layoutId='underline' className={styles.underline}/>}
             </button>
             <hr/>
-        </div>
+        </motion.div>
     )
 }
 

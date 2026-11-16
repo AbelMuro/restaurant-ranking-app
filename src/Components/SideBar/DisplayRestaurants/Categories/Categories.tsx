@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useTypedSelector, useTypedDispatch} from '~/Store';
+import {motion} from 'framer-motion';
 import {ChangeTheme} from '~/Common/Functions';
 import * as styles from './styles.module.css';
 
@@ -37,7 +38,7 @@ function Categories() {
     }, [category])
 
     return(
-        <section className={styles.container}>
+        <motion.section className={styles.container} layout>
             {categories.length !== 0 && 
                 <div 
                     className={ChangeTheme(styles, 'category', theme)} 
@@ -60,7 +61,7 @@ function Categories() {
                     );
                 })
             }
-        </section>
+        </motion.section>
     )
 }
 

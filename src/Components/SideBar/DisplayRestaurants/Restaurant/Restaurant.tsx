@@ -1,5 +1,5 @@
-import React, {useRef} from 'react';
-import {useDrag, useDrop} from 'react-dnd';
+import React from 'react';
+import {useDrag, useDrop, useDragLayer} from 'react-dnd';
 import {useTypedSelector, useTypedDispatch} from '~/Store';
 import {Restaurant} from '~/Common/Types';
 import RightClickMenu from '~/Common/Components/RightClickMenu';
@@ -13,7 +13,6 @@ type Item = {
 
 function Restaurants({id, latitude, longitude, name, city, country, category, rank, try : tryRest} : Restaurant ) {
     const dispatch = useTypedDispatch();    
-    const isHoveringOnce = useRef<boolean>(false);
     const [{isDragging}, drag] = useDrag({
         type: 'restaurant',
         item: () => ({
@@ -34,11 +33,6 @@ function Restaurants({id, latitude, longitude, name, city, country, category, ra
     const [, drop] = useDrop<Item>({
         accept: 'restaurant',
         hover: (draggedItem) => {
-            if(isHoveringOnce.current)
-                return;
-            else
-                isHoveringOnce.current = true;
-
             const draggedItemId = draggedItem.id
             const currentItemId = id;
 
@@ -49,9 +43,6 @@ function Restaurants({id, latitude, longitude, name, city, country, category, ra
             const currentItemRank = rank;
 
             dispatch({type: 'REARRANGE_RESTAURANTS', payload: {draggedItem: {id: draggedItemId, rank: draggedItemRank}, currentItem: {id: currentItemId, rank: currentItemRank}}})
-        },
-        drop: () => {
-            isHoveringOnce.current = false;
         }
     });
     const theme = useTypedSelector<string>(state => state.theme.theme);
@@ -63,7 +54,7 @@ function Restaurants({id, latitude, longitude, name, city, country, category, ra
         dispatch({type: 'UPDATE_CENTER', payload: {latitude, longitude}});
     }
 
-    const handleDescendingColor = () : Record<string, string>=> {
+    const handleDescendingColor = () : Record<string, string> => {
         return theme === 'light' ? {color: `hsl(0 0% calc(${rank} * 10%))`} : {color: `hsl(0 0% ${100 - (rank * 10)}%)`}
     }
 
