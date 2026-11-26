@@ -92,12 +92,10 @@ const restaurantReducer = createReducer(initialState, (builder) => {
             allRestaurants.forEach((restaurant) => {
                 if(restaurant.id === currentItem.id){
                     restaurant.rank = draggedItem.rank;
-                    console.log('currentItem', draggedItem.rank)
                 }
                     
                 else if(restaurant.id === draggedItem.id){
                     restaurant.rank = currentItem.rank;
-                    console.log('draggedItem', currentItem.rank)
                 } 
             });
 

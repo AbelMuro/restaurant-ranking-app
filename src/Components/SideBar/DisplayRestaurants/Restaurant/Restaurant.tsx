@@ -1,5 +1,6 @@
-import React from 'react';
-import {useDrag, useDrop, useDragLayer} from 'react-dnd';
+import React, {useEffect} from 'react';
+import {useDrag, useDrop} from 'react-dnd';
+import { getEmptyImage } from 'react-dnd-html5-backend';
 import {useTypedSelector, useTypedDispatch} from '~/Store';
 import {Restaurant} from '~/Common/Types';
 import RightClickMenu from '~/Common/Components/RightClickMenu';
@@ -13,11 +14,10 @@ type Item = {
 
 function Restaurants({id, latitude, longitude, name, city, country, category, rank, try : tryRest} : Restaurant ) {
     const dispatch = useTypedDispatch();    
-    const [{isDragging}, drag] = useDrag({
+    const [{isDragging}, drag, preview] = useDrag({
         type: 'restaurant',
         item: () => ({
-            id,
-            rank
+            id, rank, latitude, longitude, name, city, country, category, try: tryRest
         }),
         canDrag: () => {
             return !tryRest;
@@ -30,6 +30,7 @@ function Restaurants({id, latitude, longitude, name, city, country, category, ra
             isDragging: monitor.isDragging()
         })
     });
+
     const [, drop] = useDrop<Item>({
         accept: 'restaurant',
         hover: (draggedItem) => {
@@ -42,7 +43,8 @@ function Restaurants({id, latitude, longitude, name, city, country, category, ra
             const draggedItemRank = draggedItem.rank;
             const currentItemRank = rank;
 
-            dispatch({type: 'REARRANGE_RESTAURANTS', payload: {draggedItem: {id: draggedItemId, rank: draggedItemRank}, currentItem: {id: currentItemId, rank: currentItemRank}}})
+            dispatch({type: 'REARRANGE_RESTAURANTS', payload: {draggedItem: {id: draggedItemId, rank: draggedItemRank}, currentItem: {id: currentItemId, rank: currentItemRank}}});
+            draggedItem.rank = rank;
         }
     });
     const theme = useTypedSelector<string>(state => state.theme.theme);
@@ -73,6 +75,11 @@ function Restaurants({id, latitude, longitude, name, city, country, category, ra
         else
             return {};
     }
+
+
+    useEffect(() => {
+        preview(getEmptyImage())
+    }, [preview])
 
 
     return(

@@ -1,0 +1,138 @@
+.container{
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: all 0s linear;
+}
+
+.restaurant{ 
+    width: 100%;
+    min-width: 370px;
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid transparent;
+    display: grid;
+    grid-template-columns: auto auto auto 1fr auto;
+    justify-content: start;
+    column-gap: 10px;
+    cursor: pointer;
+    transform: translate(0, 0)
+}
+
+.restaurant_number{
+    margin: 0px;
+    font-family: var(--preset-font-family-1);
+    font-size: var(--preset-text-3-font-size);
+    font-weight: var(--preset-text-3-font-weight);
+    line-height: var(--preset-text-3-line-height);
+    letter-spacing: var(--preset-text-3-letter-spacing);
+    grid-column: 1/2;
+    grid-row: 1/3;
+    align-self: center;
+}
+
+
+.restaurant_image{
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: red;
+    grid-column: 2/3;
+    grid-row: 1/3;
+    align-self: center;
+}
+
+.restaurant_title{
+    margin: 0px;
+    font-family: var(--preset-font-family-3);
+    font-size: var(--preset-text-5-font-size);
+    font-weight: 800;
+    line-height: var(--preset-text-5-line-height);
+    letter-spacing: var(--preset-text-5-letter-spacing);
+    grid-column: 3/4;
+    grid-row: 1/2;
+    align-self: end;
+}
+
+.restaurant_title.light{
+    color: black;
+}
+
+.restaurant_title.dark{
+    color: white;
+}
+
+.restaurant_category{
+    width: fit-content;
+    height: 20px;
+    padding: 0px 5px;
+    border-radius: 7px;
+    background-color: var(--preset-color-white-2);
+    color: var(--preset-color-grey-2);
+    font-family: var(--preset-font-family-3);
+    font-size: var(--preset-text-6-font-size);
+    font-weight: 500;
+    line-height: var(--preset-text-6-line-height);
+    letter-spacing: var(--preset-text-6-letter-spacing);
+    grid-column: 4/5;
+    grid-row: 1/2;
+    justify-self: start;
+    align-self: center;
+}
+
+.restaurant_city{
+    margin: 0px;
+    font-family: var(--preset-font-family-3);
+    font-size: var(--preset-text-5-font-size);
+    font-weight: var(--preset-text-5-font-weight);
+    line-height: var(--preset-text-5-line-height);
+    letter-spacing: var(--preset-text-5-letter-spacing);
+    grid-column: 3/5;
+    grid-row: 2/3;
+    align-self: start;
+}
+
+.restaurant_city.light{
+    color: var(--preset-color-grey-1);
+}
+
+.restaurant_city.dark{
+    color: var(--preset-color-white-3);
+}
+
+.restaurant_currency{
+    grid-column: 5/6;
+    grid-row: 1/2;
+    font-family: var(--preset-font-family-1);
+    font-size: var(--preset-text-5-font-size);
+    font-weight: var(--preset-text-5-font-weight);
+    line-height: var(--preset-text-5-line-height);
+    letter-spacing: var(--preset-text-5-letter-spacing);
+}
+
+.restaurant_currency.light{
+    color: black;
+}
+
+.restaurant_currency.dark{
+    color: var(--preset-color-white-2);
+}
+
+.restaurant_toppick{
+    font-family: var(--preset-font-family-3);
+    font-size: var(--preset-text-5-font-size);
+    font-weight: 600;
+    line-height: var(--preset-text-5-line-height);
+    letter-spacing: var(--preset-text-5-letter-spacing);
+    grid-column: 5/6;
+    grid-row: 2/3;
+    margin: 0px;
+}
+
+.restaurant_toppick.light{
+    color: var(--preset-color-orange-1);
+}
+
+.restaurant_toppick.dark{
+    color: var(--preset-color-orange-2)
+}

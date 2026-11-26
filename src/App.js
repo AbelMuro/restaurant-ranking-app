@@ -11,7 +11,7 @@ import './styles.css';
     when the dragged item is over one of the items, the rank exchange happens, but when the dragged item is 
     over the second item, the rank exchange still happens but the first item retains the new rank as well
 
-    and now we have two items with the same rank
+    and now we have two items with the same rank (its still happens)
 */
 
 function App() {

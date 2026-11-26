@@ -9,6 +9,7 @@ import Categories from './Categories';
 import Restaurant from './Restaurant';
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
+import DisplayDraggedItem from './DisplayDraggedItem';
 import * as styles from './styles.module.css';
 
 function DisplayRestaurants() {
@@ -43,6 +44,7 @@ function DisplayRestaurants() {
                         <Restaurant {...restaurant} key={key}/>
                     )
                 })}
+                <DisplayDraggedItem/>
             </DndProvider>
         </motion.section>
     )
